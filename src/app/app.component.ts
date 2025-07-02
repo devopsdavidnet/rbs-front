@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-
+import { Component, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
+import {BreakpointObserver} from '@angular/cdk/layout'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +8,43 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'dso-front-end';
+
+    
+    @ViewChild(MatSidenav)
+    sidenav!:MatSidenav;
+    isMobile=true;
+    isCollapsed=true;
+  constructor(private observer: BreakpointObserver){}
+  
+  
+    ngOnInit() {
+      this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
+        if(screenSize.matches){
+          
+          this.isMobile=true;
+        } else {
+          this.isMobile=false;
+        }
+      });
+    }
+  
+  toggleMenu(){
+   if(this.isMobile){
+     this.sidenav.toggle();
+     this.isCollapsed=false;
+     }else{
+      this.sidenav.open();
+      this.isCollapsed=!this.isCollapsed;
+     }
+  
+    }
+  closeSidenav() {
+      if (this.isMobile) {
+        this.sidenav.close();
+      }
+    }
+  
+  
+  
+  
 }

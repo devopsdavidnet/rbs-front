@@ -1,0 +1,129 @@
+<mat-tab-group animationDuration="500ms" #tabGroup>
+  <!-- TAB 1 -->
+  <mat-tab label="Bandeja de Entrada">
+    <ng-template mat-tab-label>
+      <img src="assets/images/information.png" width="22" height="22" />
+      Bandeja de Entrada
+    </ng-template>
+
+    <mat-card>
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z8"
+        style="width: 100%"
+      >
+        <!-- Tipo Organización -->
+        <ng-container matColumnDef="tipoOrganizacion">
+          <th mat-header-cell *matHeaderCellDef>Tipo Organización</th>
+          <td mat-cell *matCellDef="let row">{{ row.tipoOrganizacion }}</td>
+        </ng-container>
+
+        <!-- Organización -->
+        <ng-container matColumnDef="organizacion">
+          <th mat-header-cell *matHeaderCellDef>Organización</th>
+          <td mat-cell *matCellDef="let row">{{ row.organizacion }}</td>
+        </ng-container>
+
+        <!-- Fecha Asignación -->
+        <ng-container matColumnDef="fechaAsignacion">
+          <th mat-header-cell *matHeaderCellDef>Fecha Asignación</th>
+          <td mat-cell *matCellDef="let row">
+            {{ row.fechaAsignacion | date }}
+          </td>
+        </ng-container>
+
+        <!-- Estado -->
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let row">
+            <span
+              [ngClass]="row.estado === 'Activo' ? 'text-green' : 'text-red'"
+            >
+              {{ row.estado }}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Acciones -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-icon-button color="primary" (click)="editar(row)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="eliminar(row)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <!-- Renderizar la tabla -->
+        <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnas"></tr>
+      </table>
+    </mat-card>
+  </mat-tab>
+  <!-- TAB 2 -->
+  <mat-tab label="Planificación">
+    <ng-template mat-tab-label>
+      <img src="assets/images/information.png" width="22" height="22" />
+      Planificación
+    </ng-template>
+
+    <form [formGroup]="form">
+      <mat-label>Organizacion </mat-label>
+      <input matInput formControlName="companyName" readonly />
+
+      <mat-label>Tipo de Organización </mat-label>
+      <input matInput formControlName="location" readonly />
+    </form>
+
+    <mat-stepper labelPosition="bottom" orientation="horizontal" #stepper>
+      <mat-step>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>
+          <!--<p *ngIf="isMobile">IdE</p>
+          <p *ngIf="!isMobile">Indicador de Exposición (IdE)</p>-->
+        </ng-template>
+
+        <mat-label>company name</mat-label>
+        <input matInput formControName="cname" />
+        <br />
+        <mat-label>location</mat-label>
+        <input matInput formControName="location" />
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>
+          <!--<p *ngIf="isMobile">RBS</p>
+          <p *ngIf="!isMobile">Planificacion RBS</p>-->
+        </ng-template>
+
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>
+          <!--  <p *ngIf="isMobile">RBS</p>
+          <p *ngIf="!isMobile">Planificacion RBS</p>-->
+        </ng-template>
+
+        <button mat-button matStepperPrevious>Back</button>
+      </mat-step>
+    </mat-stepper>
+  </mat-tab>
+</mat-tab-group>

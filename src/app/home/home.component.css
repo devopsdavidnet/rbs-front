@@ -1,0 +1,40 @@
+.titulo-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 15vh; /* ocupa toda la altura de la pantalla */
+  text-align: center;
+  background-color: #f5f5f5; /* opcional */
+  box-shadow: none;
+  border: none;
+}
+
+.titulo-centrado {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1976d2; /* color azul Angular Material */
+  max-width: 600px;
+  padding: 16px;
+}
+
+.imagen-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30vh; /* toda la altura de la pantalla */
+}
+
+.imagen-container img {
+  width: 300px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.menu-icon {
+  width: 16px;           /* Tamaño ancho */
+  height: 16px;          /* Tamaño alto */
+  object-fit: contain;   /* Para que no se distorsione */
+  margin-right: 8px;     /* Espacio a la derecha si va junto a texto */
+  vertical-align: middle;/* Alineación vertical con texto */
+  cursor: pointer;       /* Icono con puntero */
+}
