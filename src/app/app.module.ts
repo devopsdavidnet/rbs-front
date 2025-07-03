@@ -40,6 +40,7 @@ import { MatTableModule } from '@angular/material/table';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatStepperModule} from '@angular/material/stepper';
+import { HttpClientModule } from '@angular/common/http'; // <-- Import this!
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import {MatStepperModule} from '@angular/material/stepper';
     EjecucionComponent
   ],
   imports: [
+    HttpClientModule,
     MatDividerModule,
     MatMenuModule,
     MatStepperModule,

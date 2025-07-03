@@ -14,6 +14,7 @@ export class PlantillaComponent {
   @ViewChild(MatSidenav)
   sidenav!:MatSidenav;
   isMobile=true;
+  
   isCollapsed=true;
 constructor(private observer: BreakpointObserver, private global:GlobalService){}
 
@@ -22,9 +23,10 @@ constructor(private observer: BreakpointObserver, private global:GlobalService){
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
       if(screenSize.matches){
         
-        this.isMobile=true;
+      this.global.setIsMobile(true);
       } else {
-        this.isMobile=false;
+        this.global.setIsMobile(false);
+        
       }
     });
     this.global.isMobile$.subscribe(valor => {

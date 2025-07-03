@@ -1,0 +1,153 @@
+
+h1 {
+    padding: 0 1rem;
+}
+
+h2 {padding: 1rem;}
+
+mat-toolbar{
+    position:fixed;
+    top:0;
+    z-index: 2;
+    
+}
+
+.titulo{
+  color: blue;
+}
+
+
+mat-sidenav-container {
+    height:100%;
+    
+}
+
+
+mat-sidenav {
+    
+    padding-top: 3.5rem;
+    @media screen and (min-width: 600px) {
+      padding-top: 4rem;
+    }
+
+    .entry{
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding:0.75rem;
+    }
+  }
+
+mat-sidenav-content{
+    padding-top: 3.5rem;
+    @media screen and (min-width: 600px) {
+        padding-top: 4rem;
+    }
+}
+
+body {
+  font-family: 'Covered By Your Grace', cursive;
+  line-height: 1.25;
+}
+
+body {
+  font-family: 'Covered By Your Grace', cursive;
+  line-height: 1.25;
+}
+
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle;
+  }
+
+  .mat-table caption {
+    font-size: 1em;
+  }
+
+  /*  Enable this to hide header
+  .mat-table .mat-header-cell {
+    
+    border: 10px solid;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  */
+  .mat-table .mat-row {
+    border-bottom: 5px solid #ddd;
+    display: block;
+  }
+  /*
+  .mat-table .mat-row:nth-child(even) {background: #CCC}
+  .mat-table .mat-row:nth-child(odd) {background: #FFF}
+  */
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+    height: 30px;
+    margin-bottom: 4%;
+  }
+  .mat-table .mat-cell:before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+
+    font-size: 0.85em;
+  }
+  .mat-table .mat-cell:last-child {
+    border-bottom: 0;
+  }
+  .mat-table .mat-cell:first-child {
+    margin-top: 4%;
+  }
+}
+
+
+/* Ocultar encabezados en pantallas pequeñas */
+@media screen and (max-width: 768px) {
+  .responsive-table {
+    width: 100%;
+    display: block;
+  }
+
+  .responsive-table mat-header-row,
+  .responsive-table mat-header-cell {
+    display: none;
+  }
+
+  .responsive-table mat-row {
+    display: block;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 12px;
+    background: #fafafa;
+  }
+
+  .responsive-table mat-cell {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .responsive-table mat-cell::before {
+    content: attr(data-label) ": ";
+    font-weight: bold;
+    /*color: #1976d2;*/
+    color:rgb(80, 79, 79);
+  }
+}
