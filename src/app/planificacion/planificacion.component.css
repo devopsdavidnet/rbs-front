@@ -151,3 +151,19 @@ body {
     color:rgb(80, 79, 79);
   }
 }
+
+mat-header-cell,
+mat-cell {
+  border-right: 1px solid #ccc;
+}
+
+mat-header-row,
+mat-row {
+  border-bottom: 1px solid #ddd;
+}
+
+mat-header-cell:last-child,
+mat-cell:last-child {
+  border-right: none; /* sin borde en la última columna */
+}
+
