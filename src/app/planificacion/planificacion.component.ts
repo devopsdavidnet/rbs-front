@@ -84,7 +84,7 @@ this.proveedorService.getParamOrp().subscribe(data => { this.dataSource3 = data;
 this.proveedorService.getProveedores().subscribe(data => {this.dataSource1 = data; console.log(this.dataSource1); });
 
 
- const datos = [
+ let datos = [
       {
         idOrp: 1,
         parametroRiesgosOrganizacion: 'Parámetro A',
@@ -101,13 +101,35 @@ this.proveedorService.getProveedores().subscribe(data => {this.dataSource1 = dat
         nivelUnoMasDeseable: 1,
         resultadoNivel: null,
       },
+      {
+        idOrp: 3,
+        parametroRiesgosOrganizacion: 'Parámetro B',
+        nivelTresMenosDeseableo: 3,
+        nivelDosPromedio: 2,
+        nivelUnoMasDeseable: 1,
+        resultadoNivel: null,
+      },
+      {
+        idOrp:4,
+        parametroRiesgosOrganizacion: 'Parámetro B',
+        nivelTresMenosDeseableo: 3,
+        nivelDosPromedio: 2,
+        nivelUnoMasDeseable: 1,
+        resultadoNivel: null,
+      },
     ];
 
-    this.dataSource3.data = datos;
-this.proveedorService.getParamOrp().subscribe(data => { this.dataSource3 = data; console.log(this.dataSource3);}) ;    
-    this.initFormArray(this.dataSource3.data);
-  
+  this.proveedorService.getParamOrp().subscribe(data => { this.dataSource3 = data; console.log(this.dataSource3);}) ;        
+
+    this.proveedorService.getParamOrp().subscribe(data => { this.datos = data; console.log(this.datos);}) ;        
     
+    this.dataSource3.data = datos;
+ 
+ 
+    
+    //this.initFormArray(this.dataSource3.data);
+  this.initFormArray(this.dataSource3.data);
+//this.proveedorService.getParamOrp().subscribe(data => { this.dataSource3 = data; console.log(this.dataSource3);}) ;        
 
   
   
