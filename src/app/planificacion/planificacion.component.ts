@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { GlobalService } from '../services/global.service';
 import { ProveedoresServiceService } from '../services/proveedores-service.service';
 import Proveedores from '../modelos/Proveedores';
+import Orp from '../modelos/Orp';
 
 interface Fila {
   nro: number;
@@ -21,8 +22,7 @@ interface Fila {
 })
 export class PlanificacionComponent implements OnInit {
      niveles = [1, 2, 3];
-  dataSource2 = new MatTableDataSource<FormGroup>();
-
+  
   displayedColumns: string[] = [
     'nro',
     'parametro',
@@ -32,44 +32,28 @@ export class PlanificacionComponent implements OnInit {
     'resultadoNivel'
   ];
   
+   columnas: string[] = 
+   ['tipoOrganizacion', 
+    'organizacion', 
+    'fechaAsignacion', 
+    'estado', 
+    'acciones'
+  ];
   
-  //form: FormGroup;
-  
-  columnas: string[] = ['tipoOrganizacion', 'organizacion', 'fechaAsignacion', 'estado', 'acciones'];
-   datos: any[] = [];
-isMobile: boolean = true;
+  datos: any[] = [];
+  isMobile: boolean = true;
+  proveedoresLista?:Proveedores[];
+  oprLista?:Orp[];
+  dataSource1= new MatTableDataSource<Proveedores>();
+  dataSource3 =new MatTableDataSource<any>();
+ 
+  form!: FormGroup;
 
-  dataSource = new MatTableDataSource([
-    {
-      tipoOrganizacion: 'AOC',
-      organizacion: 'AeroBolivia S.A.',
-      fechaAsignacion: new Date('2024-05-10'),
-      estado: 'Activo'
-    },
-    {
-      tipoOrganizacion: 'OMA',
-      organizacion: 'HeliSur SRL',
-      fechaAsignacion: new Date('2023-11-20'),
-      estado: 'Inactivo'
-    }
-  ]);
-   proveedoresLista?:Proveedores[];
-  dataSource1= new MatTableDataSource<any>();
-
- form: FormGroup;
 
   constructor(private fb: FormBuilder,private global:GlobalService,private proveedorService:ProveedoresServiceService) {
-    this.form = this.fb.group({
-      companyName: [''],
-      location: [''],
-      filas:this.fb.array([])
-    });
+ 
 
-
-   
-
-
-    this.global.isMobile$.subscribe(valor => {
+  this.global.isMobile$.subscribe(valor => {
       this.isMobile = valor;
     });
   }
@@ -77,68 +61,99 @@ isMobile: boolean = true;
   
 
 
-  ngOnInit(): void {
-     console.log('AAAAAAAAAAAAAAAAAAAaa');
-     
+ ngOnInit(): void {
+ this.form = this.fb.group({
+ companyName: [''],
+ location: [''],
+ filas:this.fb.array([])
+ });
+
+
+
+
+
+
   
+ //this.initFormArray(this.dataSource3.data);
 
- this.proveedorService.getProveedores().subscribe(data => {this.proveedoresLista=data });
-  console.log(this.proveedoresLista);
-  console.log("AAAAAAAAAAAAAAAAAAADDDDDDDDDDDdddddd"+this.proveedoresLista);
-
-  console.log("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
-  this.proveedorService.getProveedores().subscribe(data => {
-    //this.datos = data; console.log(this.datos);
-   this.dataSource1 = data; console.log(this.dataSource1);
-    
-  });
+/*
+this.proveedorService.getParamOrp().subscribe(data => { this.dataSource3 = data; console.log(this.dataSource3);
+  }) */
 
 
- const data: Fila[] = [
+this.proveedorService.getProveedores().subscribe(data => {this.dataSource1 = data; console.log(this.dataSource1); });
+
+
+ const datos = [
       {
-        nro: 1,
-        parametro: 'Retroalimentación para determinar la aceptación general de la organización',
-        nivel3: 'Percibida como una OMA no deseada - desde la perspectiva del empleado o cliente.Muy alto',
-        nivel2: 'Percibida como una OMA promedio - desde la perspectiva del cliente o del empleado.',
-        nivel1: 'Percibida como una OMA deseable - desde la perspectiva del cliente o del empleado.',
-        resultadoNivel: null
+        idOrp: 1,
+        parametroRiesgosOrganizacion: 'Parámetro A',
+        nivelTresMenosDeseableo: 3,
+        nivelDosPromedio: 2,
+        nivelUnoMasDeseable: 1,
+        resultadoNivel: null,
       },
       {
-        nro: 2,
-        parametro: 'Estado financiero de la OMA',
-        nivel3: 'Frecuentes infracciones',
-        nivel2: 'Algunas observaciones',
-        nivel1: 'Consistentemente rentable',
-        resultadoNivel: null
-      }
+        idOrp: 2,
+        parametroRiesgosOrganizacion: 'Parámetro B',
+        nivelTresMenosDeseableo: 3,
+        nivelDosPromedio: 2,
+        nivelUnoMasDeseable: 1,
+        resultadoNivel: null,
+      },
     ];
 
-    const formArray = this.form.get('filas') as FormArray;
-    data.forEach(dato => {
-      const grupo = this.fb.group({
-        nro: [dato.nro],
-        parametro: [dato.parametro],
-        nivel3: [dato.nivel3],
-        nivel2: [dato.nivel2],
-        nivel1: [dato.nivel1],
-        resultadoNivel: [dato.resultadoNivel]
+    this.dataSource3.data = datos;
+this.proveedorService.getParamOrp().subscribe(data => { this.dataSource3 = data; console.log(this.dataSource3);}) ;    
+    this.initFormArray(this.dataSource3.data);
+  
+    
+
+  
+  
+}
+ initFormArray(datos: any[]): void {
+    const filasArray = this.form.get('filas') as FormArray;
+    filasArray.clear();
+
+    datos.forEach((item) => {
+      const filaGroup = this.fb.group({
+        idOrp: [item.idOrp],
+        parametroRiesgosOrganizacion: [item.parametroRiesgosOrganizacion],
+        nivelTresMenosDeseableo: [item.nivelTresMenosDeseableo],
+        nivelDosPromedio: [item.nivelDosPromedio],
+        nivelUnoMasDeseable: [item.nivelUnoMasDeseable],
+        resultadoNivel: [item.resultadoNivel ?? null],
       });
-      formArray.push(grupo);
+      filasArray.push(filaGroup);
     });
-
-    // Asociamos el FormArray al MatTableDataSource
-    this.dataSource2.data = formArray.controls as FormGroup[];
-
+  }
 
 
   
-}
+ get filasFormArray(): FormArray {
+    return this.form.get('filas') as FormArray;
+  }
+
+ get sumaResultadoNivel(): number {
+    const filas = this.filasFormArray;
+    return filas.controls.reduce((acc, ctrl) => {
+      const val = Number(ctrl.get('resultadoNivel')?.value);
+      return acc + (isNaN(val) ? 0 : val);
+    }, 0);
+  }
+
+
+
 
  @ViewChild('tabGroup') tabGroup: any;
 selectedData: any = null; // Para almacenar los datos del elemento seleccionado
 
 editar(row: any) {
-  if (row.estado === 'Activo') {
+  //aqui camie de esto === a esto !==
+  if (row.estado !== 'Activo') {
+  
+    
     this.selectedData = row; // opcional  si necesitas usar los datos en otras partes
  const tipoOrganizacion = row.tipoOrganizacion;
   const organizacion = row.organizacion;

@@ -8,7 +8,7 @@ import Proveedores from '../modelos/Proveedores';
   providedIn: 'root'
 })
 export class ProveedoresServiceService {
- private apiUrl='http://localhost:8090/api/proveedores';
+ private apiUrl='http://localhost:8090/api/';
  proveedor?: Proveedores[];
 
  
@@ -55,8 +55,12 @@ return this.http.get<Proveedores>(this.apiUrl+"/"+id);
 }*/
 
 public getProveedores():Observable<any>{
-   return this.http.get<any>(this.apiUrl);
+   return this.http.get<any>(this.apiUrl+"proveedores");
  
+}
+public getParamOrp():Observable<any>{
+   return this.http.get<any>(this.apiUrl+"paramorp");
+
 }
 
 
