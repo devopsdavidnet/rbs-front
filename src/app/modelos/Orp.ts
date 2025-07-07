@@ -9,6 +9,6 @@ export default interface Orp {
     estadoRegistro: String;
     usuarioActual:  String;
     fechaRegistro: String;
-
+    resultadoNivel: number;
 }
 

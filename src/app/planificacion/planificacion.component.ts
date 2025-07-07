@@ -108,33 +108,34 @@ this.proveedorService.getProveedores().subscribe(data => {this.dataSource1 = dat
         nivelDosPromedio: 2,
         nivelUnoMasDeseable: 1,
         resultadoNivel: null,
-      },
-      {
-        idOrp:4,
-        parametroRiesgosOrganizacion: 'Parámetro B',
-        nivelTresMenosDeseableo: 3,
-        nivelDosPromedio: 2,
-        nivelUnoMasDeseable: 1,
-        resultadoNivel: null,
-      },
+      }
     ];
 
-  this.proveedorService.getParamOrp().subscribe(data => { this.dataSource3 = data; console.log(this.dataSource3);}) ;        
+    //this.proveedorService.getParamOrp().subscribe(data => { this.dataSource3 = data; console.log(this.dataSource3);}) ;        
+
+   this.proveedorService.getParamOrp().subscribe(data => {
+    this.dataSource3.data = data;           // ✅ asigna al .data, no al objeto
+    this.initFormArray(data);               // ✅ pasa el array a la función
+  });    
 
     this.proveedorService.getParamOrp().subscribe(data => { this.datos = data; console.log(this.datos);}) ;        
     
-    this.dataSource3.data = datos;
+   //  this.dataSource3.data = this.dataSource3.data;
  
- 
+     //this.initFormArray(this.dataSource3);
+
+   //  this.initFormArray(this.dataSource3.data);
     
     //this.initFormArray(this.dataSource3.data);
-  this.initFormArray(this.dataSource3.data);
+  
 //this.proveedorService.getParamOrp().subscribe(data => { this.dataSource3 = data; console.log(this.dataSource3);}) ;        
 
   
   
 }
  initFormArray(datos: any[]): void {
+   console.log("dddddddddddddddddddddatossss");
+   console.log(datos) ; 
     const filasArray = this.form.get('filas') as FormArray;
     filasArray.clear();
 
