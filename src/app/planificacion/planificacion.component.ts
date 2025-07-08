@@ -6,6 +6,8 @@ import { ProveedoresServiceService } from '../services/proveedores-service.servi
 import Proveedores from '../modelos/Proveedores';
 import Orp from '../modelos/Orp';
 
+import { MatPaginator } from '@angular/material/paginator';
+import { AfterViewInit } from '@angular/core';
 
 
 interface Fila {
@@ -23,8 +25,11 @@ interface Fila {
   styleUrls: ['./planificacion.component.css']
 })
 export class PlanificacionComponent implements OnInit {
-     niveles = [1, 2, 3];
-  
+     niveles = [0,1, 2, 3];
+
+     
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   displayedColumns: string[] = [
     'nro',
     'parametro',
@@ -60,7 +65,8 @@ export class PlanificacionComponent implements OnInit {
     });
   }
 
-  
+
+
 
 
  ngOnInit(): void {
@@ -83,6 +89,18 @@ this.proveedorService.getProveedores().subscribe(data => {this.dataSource1 = dat
    
   
 }
+
+  ngAfterViewInit(): void {
+  this.dataSource3.paginator = this.paginator;
+}
+
+getFormGroupById(idOrp: number): FormGroup {
+  const filas = this.form.get('filas') as FormArray;
+  const index = this.dataSource3.data.findIndex(d => d.idOrp === idOrp);
+  return filas.at(index) as FormGroup;
+}
+
+
  initFormArray(datos: any[]): void {
    console.log("dddddddddddddddddddddatossss");
    console.log(datos) ; 

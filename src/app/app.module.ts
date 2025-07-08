@@ -38,7 +38,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatStepperModule} from '@angular/material/stepper';
 import { HttpClientModule } from '@angular/common/http'; 
 
-
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -51,6 +51,7 @@ import { HttpClientModule } from '@angular/common/http';
     EjecucionComponent
   ],
   imports: [
+    MatPaginatorModule,
     HttpClientModule,
     MatDividerModule,
     MatMenuModule,

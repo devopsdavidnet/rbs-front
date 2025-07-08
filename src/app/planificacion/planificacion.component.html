@@ -141,14 +141,12 @@
         </ng-template>
 
         <form [formGroup]="form">
-          <mat-table [dataSource]="dataSource3" formArrayName="filas">
+          <!-- <mat-table [dataSource]="dataSource3" formArrayName="filas">-->
+          <mat-table [dataSource]="dataSource3">
             <!-- Nro -->
             <ng-container matColumnDef="nro">
               <mat-header-cell *matHeaderCellDef> Nro. </mat-header-cell>
-              <mat-cell
-                *matCellDef="let row; let i = index"
-                [formGroupName]="i"
-              >
+              <mat-cell *matCellDef="let row; let i = index">
                 {{ row.idOrp }}
               </mat-cell>
             </ng-container>
@@ -157,10 +155,7 @@
               <mat-header-cell *matHeaderCellDef>
                 Perfil de Riesgo de la Organización
               </mat-header-cell>
-              <mat-cell
-                *matCellDef="let row; let i = index"
-                [formGroupName]="i"
-              >
+              <mat-cell *matCellDef="let row; let i = index">
                 {{ row.parametroRiesgosOrganizacion }}
               </mat-cell>
             </ng-container>
@@ -169,10 +164,7 @@
               <mat-header-cell *matHeaderCellDef>
                 Nivel 3 (menos deseable)
               </mat-header-cell>
-              <mat-cell
-                *matCellDef="let row; let i = index"
-                [formGroupName]="i"
-              >
+              <mat-cell *matCellDef="let row; let i = index">
                 {{ row.nivelTresMenosDeseableo }}
               </mat-cell>
             </ng-container>
@@ -181,10 +173,7 @@
               <mat-header-cell *matHeaderCellDef>
                 Nivel 2 (promedio)
               </mat-header-cell>
-              <mat-cell
-                *matCellDef="let row; let i = index"
-                [formGroupName]="i"
-              >
+              <mat-cell *matCellDef="let row; let i = index">
                 {{ row.nivelDosPromedio }}
               </mat-cell>
             </ng-container>
@@ -193,10 +182,7 @@
               <mat-header-cell *matHeaderCellDef>
                 Nivel 1 (más deseable)</mat-header-cell
               >
-              <mat-cell
-                *matCellDef="let row; let i = index"
-                [formGroupName]="i"
-              >
+              <mat-cell *matCellDef="let row; let i = index">
                 {{ row.nivelUnoMasDeseable }}
               </mat-cell>
             </ng-container>
@@ -208,7 +194,7 @@
               </mat-header-cell>
               <mat-cell
                 *matCellDef="let row; let i = index"
-                [formGroupName]="i"
+                [formGroup]="getFormGroupById(row.idOrp)"
               >
                 <mat-form-field appearance="fill" style="width: 100px">
                   <mat-select formControlName="resultadoNivel">
@@ -225,96 +211,21 @@
             ></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
           </mat-table>
-
+          <mat-paginator
+            [pageSize]="10"
+            [pageSizeOptions]="[5, 10, 20]"
+            showFirstLastButtons
+          >
+          </mat-paginator>
           <div style="margin-top: 16px; font-weight: bold">
             Total Resultado Nivel: {{ sumaResultadoNivel }}
           </div>
-        </form>
 
-        <!--
-            preguntas orp     
-               
-         -->
-        <!--
-        <form [formGroup]="form">
-          <mat-table [dataSource]="dataSource3" formArrayName="filas">
-            <ng-container matColumnDef="nro">
-              <mat-header-cell *matHeaderCellDef> Nro. </mat-header-cell>
-              <mat-cell *matCellDef="let x; let i = index" [formGroupName]="i">
-                {{ x.idOrp }}
-              </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="parametro">
-              <mat-header-cell *matHeaderCellDef>
-                
-              </mat-header-cell>
-              <mat-cell *matCellDef="let x; let i = index" [formGroupName]="i">
-                {{ x.parametroRiesgosOrganizacion }}
-              </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="nivel3">
-              <mat-header-cell *matHeaderCellDef>
-                Nivel 3 (menos deseable)
-              </mat-header-cell>
-              <mat-cell *matCellDef="let x; let i = index" [formGroupName]="i">
-                {{ x.nivelTresMenosDeseableo }}
-              </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="nivel2">
-              <mat-header-cell *matHeaderCellDef>
-                Nivel 2 (promedio)
-              </mat-header-cell>
-              <mat-cell *matCellDef="let x; let i = index" [formGroupName]="i">
-                {{ x.nivelDosPromedio }}
-              </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="nivel1">
-              <mat-header-cell *matHeaderCellDef>
-                Nivel 1 (más deseable)</mat-header-cell
-              >
-              <mat-cell *matCellDef="let x; let i = index" [formGroupName]="i">
-                {{ x.nivelUnoMasDeseable }}
-              </mat-cell>
-            </ng-container>
-
-            
-            <ng-container matColumnDef="resultadoNivel">
-              <mat-header-cell *matHeaderCellDef>
-                Resultado Nivel
-              </mat-header-cell>
-              <mat-cell
-                *matCellDef="let row; let i = index"
-                [formGroupName]="i"
-              >
-                <mat-form-field appearance="fill" style="width: 100px">
-                  <mat-select formControlName="resultadoNivel">
-                    <mat-option *ngFor="let nivel of niveles" [value]="nivel">
-                      {{ nivel }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </mat-cell>
-            </ng-container>
-
-            <mat-header-row
-              *matHeaderRowDef="displayedColumns"
-            ></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-          </mat-table>
-
-          <div style="margin-top: 16px; font-weight: bold">
-            Total Resultado Nivel: {{ sumaResultadoNivel }}
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
           </div>
         </form>
-          Resultado Nivel -->
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
       </mat-step>
 
       <mat-step>
