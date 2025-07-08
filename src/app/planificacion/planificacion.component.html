@@ -109,18 +109,6 @@
               <mat-icon>delete</mat-icon>
             </button>
           </mat-cell>
-
-          <!-- <ng-container matColumnDef="acciones">
-          <th mat-header-cell *matHeaderCellDef>Acciones</th>
-          <td mat-cell *matCellDef="let row">
-            <button mat-icon-button color="primary" (click)="editar(row)">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-icon-button color="warn" (click)="eliminar(row)">
-              <mat-icon>delete</mat-icon>
-            </button> al llorar liveras exsofinas
-          </td>
-        </ng-container>-->
         </ng-container>
         <!-- Header and Row Definitions -->
         <mat-header-row *matHeaderRowDef="columnas"></mat-header-row>
@@ -129,12 +117,8 @@
     </mat-card>
   </mat-tab>
   <!-- TAB 2 -->
-  <mat-tab label="Planificación">
-    <ng-template mat-tab-label>
-      <img src="assets/images/information.png" width="22" height="22" />
-      Planificación
-    </ng-template>
-    <!--
+
+  <!--
     <form [formGroup]="form">
       <mat-label>Organizacion </mat-label>
       <input matInput formControlName="companyName" readonly />
@@ -143,6 +127,12 @@
       <input matInput formControlName="location" readonly />
     </form>
 -->
+  <mat-tab label="Planificación">
+    <ng-template mat-tab-label>
+      <img src="assets/images/information.png" width="22" height="22" />
+      Planificación
+    </ng-template>
+
     <mat-stepper labelPosition="bottom" orientation="horizontal" #stepper>
       <mat-step>
         <ng-template matStepLabel>
@@ -163,7 +153,6 @@
               </mat-cell>
             </ng-container>
 
-            <!-- Parametro -->
             <ng-container matColumnDef="parametro">
               <mat-header-cell *matHeaderCellDef>
                 Perfil de Riesgo de la Organización
@@ -176,7 +165,6 @@
               </mat-cell>
             </ng-container>
 
-            <!-- Nivel 3 -->
             <ng-container matColumnDef="nivel3">
               <mat-header-cell *matHeaderCellDef>
                 Nivel 3 (menos deseable)
@@ -189,7 +177,6 @@
               </mat-cell>
             </ng-container>
 
-            <!-- Nivel 2 -->
             <ng-container matColumnDef="nivel2">
               <mat-header-cell *matHeaderCellDef>
                 Nivel 2 (promedio)
@@ -202,7 +189,6 @@
               </mat-cell>
             </ng-container>
 
-            <!-- Nivel 1 -->
             <ng-container matColumnDef="nivel1">
               <mat-header-cell *matHeaderCellDef>
                 Nivel 1 (más deseable)</mat-header-cell

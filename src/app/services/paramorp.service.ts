@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ParamorpService {
 
-  private apiUrl='http://localhost:8090/api/paramorp'
+  private apiUrl='http://192.168.25.17:8090/api/paramorp'
   listaParamOpr?: any[];
 
   constructor(private http:HttpClient) {

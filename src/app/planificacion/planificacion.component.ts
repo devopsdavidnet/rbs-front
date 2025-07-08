@@ -6,6 +6,8 @@ import { ProveedoresServiceService } from '../services/proveedores-service.servi
 import Proveedores from '../modelos/Proveedores';
 import Orp from '../modelos/Orp';
 
+
+
 interface Fila {
   nro: number;
   parametro: string;
@@ -70,67 +72,15 @@ export class PlanificacionComponent implements OnInit {
 
 
 
-
-
-
-  
- //this.initFormArray(this.dataSource3.data);
-
-/*
-this.proveedorService.getParamOrp().subscribe(data => { this.dataSource3 = data; console.log(this.dataSource3);
-  }) */
-
-
 this.proveedorService.getProveedores().subscribe(data => {this.dataSource1 = data; console.log(this.dataSource1); });
 
-
- let datos = [
-      {
-        idOrp: 1,
-        parametroRiesgosOrganizacion: 'Parámetro A',
-        nivelTresMenosDeseableo: 3,
-        nivelDosPromedio: 2,
-        nivelUnoMasDeseable: 1,
-        resultadoNivel: null,
-      },
-      {
-        idOrp: 2,
-        parametroRiesgosOrganizacion: 'Parámetro B',
-        nivelTresMenosDeseableo: 3,
-        nivelDosPromedio: 2,
-        nivelUnoMasDeseable: 1,
-        resultadoNivel: null,
-      },
-      {
-        idOrp: 3,
-        parametroRiesgosOrganizacion: 'Parámetro B',
-        nivelTresMenosDeseableo: 3,
-        nivelDosPromedio: 2,
-        nivelUnoMasDeseable: 1,
-        resultadoNivel: null,
-      }
-    ];
-
-    //this.proveedorService.getParamOrp().subscribe(data => { this.dataSource3 = data; console.log(this.dataSource3);}) ;        
-
    this.proveedorService.getParamOrp().subscribe(data => {
-    this.dataSource3.data = data;           // ✅ asigna al .data, no al objeto
-    this.initFormArray(data);               // ✅ pasa el array a la función
+    this.dataSource3.data = data;         
+    this.initFormArray(data);             
   });    
 
     this.proveedorService.getParamOrp().subscribe(data => { this.datos = data; console.log(this.datos);}) ;        
-    
-   //  this.dataSource3.data = this.dataSource3.data;
- 
-     //this.initFormArray(this.dataSource3);
-
-   //  this.initFormArray(this.dataSource3.data);
-    
-    //this.initFormArray(this.dataSource3.data);
-  
-//this.proveedorService.getParamOrp().subscribe(data => { this.dataSource3 = data; console.log(this.dataSource3);}) ;        
-
-  
+   
   
 }
  initFormArray(datos: any[]): void {
@@ -151,8 +101,6 @@ this.proveedorService.getProveedores().subscribe(data => {this.dataSource1 = dat
       filasArray.push(filaGroup);
     });
   }
-
-
   
  get filasFormArray(): FormArray {
     return this.form.get('filas') as FormArray;
@@ -165,9 +113,6 @@ this.proveedorService.getProveedores().subscribe(data => {this.dataSource1 = dat
       return acc + (isNaN(val) ? 0 : val);
     }, 0);
   }
-
-
-
 
  @ViewChild('tabGroup') tabGroup: any;
 selectedData: any = null; // Para almacenar los datos del elemento seleccionado
@@ -205,49 +150,6 @@ editar(row: any) {
     console.log('Eliminar:', row);
     // lógica para eliminar
   }
-
-
-/*
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-})
-export class AppComponent {
-  niveles = [1, 2, 3];
-
-  displayedColumns: string[] = [
-    'nro',
-    'parametro',
-    'nivel3',
-    'nivel2',
-    'nivel1',
-    'resultadoNivel'
-  ];
-
-  dataSource = [
-    {
-      nro: 1,
-      parametro: 'Riesgo financiero',
-      nivel3: 'Muy alto',
-      nivel2: 'Moderado',
-      nivel1: 'Bajo',
-      resultadoNivel: null
-    },
-    {
-      nro: 2,
-      parametro: 'Cumplimiento normativo',
-      nivel3: 'Frecuentes infracciones',
-      nivel2: 'Algunas observaciones',
-      nivel1: 'Cumple totalmente',
-      resultadoNivel: null
-    }
-  ];
-}
-
-*/
-
 
 
   get filas(): FormArray {
