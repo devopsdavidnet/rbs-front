@@ -122,7 +122,7 @@ determinarCategoriaORP(): number | string {
    }else if(puntaje >260 && puntaje <= 300){
     return 5; // menos deseable 
    }else {
-    return "Fuera de rango"; // en caso de que el puntaje no esté en los rangos definidos
+    return "....."; //Fuera de rango en caso de que el puntaje no esté en los rangos definidos
    }
 }
 
@@ -175,21 +175,6 @@ getFormGroupById(idOrp: number): FormGroup {
       return acc + (isNaN(val) ? 0 : val);
     }, 0);
   }
- // metodo calcula la suma ponderada
-/*calcularSumaPonderada(){
-   this.sumaResultadoPonderado=0;
-   this.dataSource3.data.forEach(row => {
-   const FormGroup= this.getFormGroupById(row.idOrp);
-   const resultadoNivel = FormGroup.get('resultadoNivel')?.value;
-   const peso=row.peso;
-   if(resultadoNivel && peso){
-    this.sumaResultadoPonderado+=resultadoNivel*peso;
-    // Redondea a 2 decimales
-     this.sumaResultadoPonderado = parseFloat(this.sumaResultadoPonderado.toFixed(2));
-   }
-   })
-}*/
-
 
 nivelNACount: number = 0;
 

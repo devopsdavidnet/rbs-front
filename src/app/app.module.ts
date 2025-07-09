@@ -39,7 +39,8 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { HttpClientModule } from '@angular/common/http'; 
 
 import { MatPaginatorModule } from '@angular/material/paginator';
-
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { CustomPaginatorIntl } from './custom/custom-paginator-intl'; // Ajusta la ruta según tu estructura
 
 
 @NgModule({
@@ -84,7 +85,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     FormsModule,
      MatDialogModule,
   ],
-  providers: [],
+  providers: [{provide:MatPaginatorIntl,useClass:CustomPaginatorIntl}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
