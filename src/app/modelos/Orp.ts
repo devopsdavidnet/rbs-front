@@ -10,5 +10,6 @@ export default interface Orp {
     usuarioActual:  String;
     fechaRegistro: String;
     resultadoNivel: number;
+    peso: number;
 }
 
