@@ -212,14 +212,54 @@
             <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
           </mat-table>
           <mat-paginator
-            [pageSize]="10"
+            [pageSize]="5"
             [pageSizeOptions]="[5, 10, 20]"
             showFirstLastButtons
           >
           </mat-paginator>
+          <!--
           <div style="margin-top: 16px; font-weight: bold">
             Total Resultado Nivel: {{ sumaResultadoNivel }}
           </div>
+
+          <div style="margin-top: 8px; font-weight: bold">
+            Niveles seleccionados: Nivel 1: {{ nivel1Count }} | Nivel 2:
+            {{ nivel2Count }} | Nivel 3: {{ nivel3Count }} | N/A: {{ nivelNA }}
+          </div>-->
+          <table>
+            <tr>
+              <td><strong> RESULTADO POR NIVEL </strong></td>
+            </tr>
+            <tr>
+              <td>
+                Nivel 1: <strong>{{ nivel1Count }}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Nivel 2: <strong>{{ nivel2Count }}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Nivel 3: <strong>{{ nivel3Count }}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                N/A: <strong>{{ nivelNA }}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td><strong> RESULTADO DE LA EVALUACIÓN </strong></td>
+            </tr>
+            <tr>
+              Puntos totales:
+            </tr>
+            <tr>
+              Categoría ORP :
+            </tr>
+          </table>
 
           <div>
             <button mat-button matStepperPrevious>Back</button>

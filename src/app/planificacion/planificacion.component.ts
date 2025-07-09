@@ -25,8 +25,11 @@ interface Fila {
   styleUrls: ['./planificacion.component.css']
 })
 export class PlanificacionComponent implements OnInit {
-     niveles = [0,1, 2, 3];
-
+     niveles = [1, 2, 3,'N/A'];
+     nivel1Count = 0;
+     nivel2Count = 0;
+     nivel3Count = 0;
+     nivelNA = 0;
      
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -102,24 +105,30 @@ getFormGroupById(idOrp: number): FormGroup {
 
 
  initFormArray(datos: any[]): void {
-   console.log("dddddddddddddddddddddatossss");
-   console.log(datos) ; 
-    const filasArray = this.form.get('filas') as FormArray;
-    filasArray.clear();
+  const filasArray = this.form.get('filas') as FormArray;
+  filasArray.clear();
 
-    datos.forEach((item) => {
-      const filaGroup = this.fb.group({
-        idOrp: [item.idOrp],
-        parametroRiesgosOrganizacion: [item.parametroRiesgosOrganizacion],
-        nivelTresMenosDeseableo: [item.nivelTresMenosDeseableo],
-        nivelDosPromedio: [item.nivelDosPromedio],
-        nivelUnoMasDeseable: [item.nivelUnoMasDeseable],
-        resultadoNivel: [item.resultadoNivel ?? null],
-      });
-      filasArray.push(filaGroup);
+  datos.forEach(item => {
+    const filaGroup = this.fb.group({
+      idOrp: [item.idOrp],
+      parametroRiesgosOrganizacion: [item.parametroRiesgosOrganizacion],
+      nivelTresMenosDeseableo: [item.nivelTresMenosDeseableo],
+      nivelDosPromedio: [item.nivelDosPromedio],
+      nivelUnoMasDeseable: [item.nivelUnoMasDeseable],
+      resultadoNivel: [item.resultadoNivel ?? null],
     });
-  }
-  
+
+    // Escuchar cambios por fila
+    filaGroup.get('resultadoNivel')?.valueChanges.subscribe(() => {
+      this.contarNiveles(); // actualizar los conteos en tiempo real
+    });
+
+    filasArray.push(filaGroup);
+  });
+
+  this.contarNiveles(); // contar al iniciar
+}
+ 
  get filasFormArray(): FormArray {
     return this.form.get('filas') as FormArray;
   }
@@ -178,4 +187,21 @@ editar(row: any) {
     const valores = this.filas.value;
     console.log('📝 JSON Resultado:', JSON.stringify(valores, null, 2));
   }
+
+contarNiveles(): void {
+  const filas = this.form.get('filas') as FormArray;
+  this.nivel1Count = 0;
+  this.nivel2Count = 0;
+  this.nivel3Count = 0;
+  this.nivelNA = 0;
+
+  filas.controls.forEach(ctrl => {
+    const nivel = ctrl.get('resultadoNivel')?.value;
+    if (nivel === 1) this.nivel1Count++;
+    else if (nivel === 2) this.nivel2Count++;
+    else if (nivel === 3) this.nivel3Count++;
+    else if (nivel === 'N/A') this.nivelNA++;
+  });
+}
+
 }
