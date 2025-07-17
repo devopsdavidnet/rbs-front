@@ -131,9 +131,9 @@ determinarCategoriaORP(): number | string {
  
 }
 
-getFormGroupById(idOrp: number): FormGroup {
+getFormGroupById(id: number): FormGroup {
   const filas = this.form.get('filas') as FormArray;
-  const index = this.dataSource3.data.findIndex(d => d.idOrp === idOrp);
+  const index = this.dataSource3.data.findIndex(d => d.id === id);
   return filas.at(index) as FormGroup;
 }
 
@@ -144,7 +144,7 @@ getFormGroupById(idOrp: number): FormGroup {
 
   datos.forEach(item => {
     const filaGroup = this.fb.group({
-      idOrp: [item.idOrp],
+      id: [item.id],
       parametroRiesgosOrganizacion: [item.parametroRiesgosOrganizacion],
       nivelTresMenosDeseableo: [item.nivelTresMenosDeseableo],
       nivelDosPromedio: [item.nivelDosPromedio],
@@ -183,7 +183,7 @@ calcularSumaPonderada() {
   this.nivelNACount = 0;
 
   this.dataSource3.data.forEach(row => {
-    const formGroup = this.getFormGroupById(row.idOrp);
+    const formGroup = this.getFormGroupById(row.id);
     const resultadoNivel = formGroup?.get('resultadoNivel')?.value; // Encadenamiento opcional
 
     if (resultadoNivel === undefined || resultadoNivel === null || resultadoNivel === "N/A" || isNaN(resultadoNivel)) {

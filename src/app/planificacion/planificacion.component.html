@@ -161,7 +161,7 @@
                 <mat-cell
                   *matCellDef="let row; let i = index"
                   data-label="Resultado Nivel"
-                  [formGroup]="getFormGroupById(row.idOrp)"
+                  [formGroup]="getFormGroupById(row.id)"
                 >
                   <mat-form-field appearance="fill" style="width: 100px">
                     <mat-select formControlName="resultadoNivel">
@@ -188,7 +188,64 @@
             >
             </mat-paginator>
 
-            <div style="margin-top: 16px; font-weight: bold">
+            <!--DDDDDDDDDDDDDDDDDddddd-->
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+                margin-top: 20px;
+                width: 100%;
+              "
+            >
+              <table class="tabla-estilo">
+                <tr style="background-color: #0b3464; color: white">
+                  <td colspan="2"><strong>RESULTADO POR NIVEL</strong></td>
+                  <td colspan="2">
+                    <strong>RESULTADO DE LA EVALUACIÓN</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Nivel 1:</td>
+                  <td>
+                    <strong>{{ nivel1Count }}</strong>
+                  </td>
+                  <td>Puntos totales:</td>
+                  <td>
+                    <strong>{{ sumaResultadoPonderado }}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Nivel 2:</td>
+                  <td>
+                    <strong>{{ nivel2Count }}</strong>
+                  </td>
+                  <td>Categoría ORP:</td>
+                  <td style="background-color: #cbe8f0">
+                    <strong>{{ determinarCategoriaORP() }}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Nivel 3:</td>
+                  <td>
+                    <strong>{{ nivel3Count }}</strong>
+                  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>N/A:</td>
+                  <td>
+                    <strong>{{ nivelNA }}</strong>
+                  </td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
+            </div>
+
+            <!--DDDDDDDDDDDDDDDDDDDDDD -->
+            <!--  <div style="margin-top: 16px; font-weight: bold">
               Total Resultado Nivel: {{ sumaResultadoNivel }}
             </div>
 
@@ -250,7 +307,7 @@
                 </td>
               </tr>
             </table>
-
+               -->
             <div>
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button matStepperNext>Next</button>

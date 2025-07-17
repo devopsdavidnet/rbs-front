@@ -1,5 +1,5 @@
 export default interface Orp {
-    idOrp: number;
+    id: number;
     idEspecialidad: number;
     correlativo: number;
     parametroRiesgosOrganizacion: String;

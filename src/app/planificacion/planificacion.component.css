@@ -175,3 +175,14 @@ mat-cell:last-child {
   padding: 4px 8px;
 }
 
+.tabla-estilo {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid#eff6fa;
+}
+
+.tabla-estilo td {
+  border: 1px solid #f5ed9a;
+  padding: 8px;
+}
+
