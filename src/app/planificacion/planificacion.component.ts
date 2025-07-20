@@ -133,6 +133,12 @@ this.form.valueChanges.subscribe(()=>{
  this.calcularSumaPonderada();
 });
 
+
+
+  this.columnasVisibles = ['exposicionTexto', ...this.columnasRiesgo.map(c => c.valor)];
+
+
+
 }
 
 
@@ -226,6 +232,8 @@ calcularSumaPonderada() {
   });
 
   this.sumaResultadoPonderado = parseFloat(this.sumaResultadoPonderado.toFixed(2));
+    this.actualizarCategoriaSeleccionada(); // ✅ ACTUALIZAR AQUÍ
+
 }
 
 
@@ -320,6 +328,8 @@ contarNiveles(): void {
     const valores = this.filasFormArray1.controls.map(c => c.get('valor')?.value || 0);
     this.total = valores.reduce((sum, v) => sum + v, 0);
     this.categoria = this.calcularCategoria(this.total);
+    this.actualizarCategoriaSeleccionada(); // ✅ ACTUALIZAR AQUÍ
+
   }
 
   calcularCategoria(total: number): string {
@@ -330,5 +340,73 @@ contarNiveles(): void {
     if (total >= 13 && total <= 15) return 'E';
     return 'N/A';
   } 
+
+
+
+
+columnasVisibles: string[] = [];
+
+  columnasRiesgo = [
+  { valor: '5', texto: 'Muy Alto' },
+  { valor: '4', texto: 'Alto' },
+  { valor: '3', texto: 'Moderado' },
+  { valor: '2', texto: 'Bajo' },
+  { valor: '1', texto: 'Muy bajo' }
+];
+
+nivelesExposicion = [
+  { exposicion: 'E', exposicionTexto: 'Muy alto' },
+  { exposicion: 'D', exposicionTexto: 'Alto' },
+  { exposicion: 'C', exposicionTexto: 'Moderado' },
+  { exposicion: 'B', exposicionTexto: 'Bajo' },
+  { exposicion: 'A', exposicionTexto: 'Muy bajo' },
+];
+
+matriz = this.nivelesExposicion;
+
+rojo = ['5E', '4E', '3E', '5D', '4D', '5C'];
+amarillo = ['2E', '3D', '2D', '4C', '3C', '2C', '5B', '4B', '3B', '5A', '4A'];
+verde = ['1E', '1D', '1C', '2B', '1B', '3A', '2A', '1A'];
+/*
+getColorClass(riesgo: string, exposicion: string): string {
+  const key = riesgo + exposicion;
+  if (this.rojo.includes(key)) return 'rojo';
+  if (this.amarillo.includes(key)) return 'amarillo';
+  if (this.verde.includes(key)) return 'verde';
+  return '';
+}
+*/
+
+
+// Variables de categoría actual
+//categoriaRiesgoSeleccionada =    1;// this.determinarCategoriaORP();  // Ejemplo: valor numérico 1–5
+//categoriaExposicionSeleccionada = 'A';//this.categoria;  // Ejemplo: 'A'–'E'
+categoriaRiesgoSeleccionada: number | string = '';
+categoriaExposicionSeleccionada: string = '';
+// Combinaciones
+//rojo = ['5E', '4E', '3E', '5D', '4D', '5C'];
+//amarillo = ['2E', '3D', '2D', '4C', '3C', '2C', '5B', '4B', '3B', '5A', '4A'];
+//verde = ['1E', '1D', '1C', '2B', '1B', '3A', '2A', '1A'];
+
+getColorClass(riesgo: number, exposicion: string): string {
+  const valor = `${riesgo}${exposicion}`;
+  const actual = `${this.categoriaRiesgoSeleccionada}${this.categoriaExposicionSeleccionada}`;
+
+  let clase = '';
+
+  if (this.rojo.includes(valor)) clase = 'rojo';
+  else if (this.amarillo.includes(valor)) clase = 'amarillo';
+  else if (this.verde.includes(valor)) clase = 'verde';
+
+  if (valor === actual) clase += ' parpadeo';
+
+  return clase;
+}
+actualizarCategoriaSeleccionada(): void {
+  this.categoriaRiesgoSeleccionada = this.determinarCategoriaORP();
+  this.categoriaExposicionSeleccionada = this.categoria;
+  console.log('Actual:', this.categoriaRiesgoSeleccionada + this.categoriaExposicionSeleccionada);
+}
+
 
 }
