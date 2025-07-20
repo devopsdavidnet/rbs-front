@@ -58,7 +58,7 @@ export class PlanificacionComponent implements OnInit {
   oprLista?:Orp[];
   dataSource1= new MatTableDataSource<Proveedores>();
   dataSource3 =new MatTableDataSource<any>();
- 
+ dataSource =new MatTableDataSource<any>();
   form!: FormGroup;
 
 
@@ -68,6 +68,24 @@ export class PlanificacionComponent implements OnInit {
   this.global.isMobile$.subscribe(valor => {
       this.isMobile = valor;
     });
+
+
+ this.formIndicador1 = this.fb.group({
+      filas: this.fb.array(this.criterios.map(() =>
+        this.fb.group({ valor: [null] })
+      ))
+    });
+
+    // Suscribirse a cambios del formulario
+    this.filasFormArray1.valueChanges.subscribe(() => {
+      this.actualizarTotalYCategoria();
+    });
+
+
+
+
+
+
   }
 
  ngOnInit(): void {
@@ -86,7 +104,28 @@ this.proveedorService.getProveedores().subscribe(data => {this.dataSource1 = dat
     this.initFormArray(data);             
   });    
 
-    this.proveedorService.getParamOrp().subscribe(data => { this.datos = data; console.log(this.datos);}) ;        
+  //getIndicadorExposicion
+/*
+  campos: string[] = 
+   ['criterio', 
+    'calificacion'
+    
+  ];
+*/
+
+  this.proveedorService.getIndicadorExposicion().subscribe(data =>{
+   this.dataSource.data=data;
+  });
+
+  
+
+    // Construye FormArray
+    const formArray = this.formIndicador1.get('indicadores') as FormArray;
+    this.dataSource.data.forEach(() => {
+      formArray.push(this.fb.group({ valorResultado: [null] }));
+    });
+
+  this.proveedorService.getParamOrp().subscribe(data => { this.datos = data; console.log(this.datos);}) ;        
    
   //tabien es necesario llamar a este cálculo cuadno cambien los 
 //valores por ejemplo, en el ngOnInit o cuando se inicializa el formulario
@@ -96,18 +135,7 @@ this.form.valueChanges.subscribe(()=>{
 
 }
 
-/*determinarCategoriaORP(): string {
-  if (this.sumaResultadoPonderado >= 0 && this.sumaResultadoPonderado <= 20) {
-    return 'Bajo';
-  } else if (this.sumaResultadoPonderado > 20 && this.sumaResultadoPonderado <= 40) {
-    return 'Medio';
-  } else if (this.sumaResultadoPonderado > 40) {
-    return 'Alto';
-  }
-  return 'No determinado';
-}
-  
-*/
+
 
 determinarCategoriaORP(): number | string {
    const puntaje = this.sumaResultadoPonderado;
@@ -263,5 +291,44 @@ contarNiveles(): void {
     else if (nivel === 'N/A') this.nivelNA++;
   });
 }
+
+
+ criterios = [
+    { criterio: 'Criterio A', calificacion: 'Descripción A' },
+    { criterio: 'Criterio B', calificacion: 'Descripción B' },
+    { criterio: 'Criterio C', calificacion: 'Descripción C' },
+       { criterio: 'Criterio C', calificacion: 'Descripción C' },
+          { criterio: 'Criterio C', calificacion: 'Descripción C' }
+  ];
+
+  formIndicador1!: FormGroup;
+  
+  displayedColumns1: string[] = ['criterio', 'calificacion', 'valorResultado'];
+  total: number = 0;
+  categoria: string = 'N/A';
+
+  get filasFormArray1(): FormArray {
+    return this.formIndicador1.get('filas') as FormArray;
+  }
+
+  getRowFormGroup(index: number): FormGroup {
+    console.log("esto es una prueba de david apaza");
+    return this.filasFormArray1.at(index) as FormGroup;
+  }
+
+  actualizarTotalYCategoria(): void {
+    const valores = this.filasFormArray1.controls.map(c => c.get('valor')?.value || 0);
+    this.total = valores.reduce((sum, v) => sum + v, 0);
+    this.categoria = this.calcularCategoria(this.total);
+  }
+
+  calcularCategoria(total: number): string {
+    if (total >= 5 && total < 7) return 'A';
+    if (total >= 7 && total < 9) return 'B';
+    if (total >= 9 && total < 11) return 'C';
+    if (total >= 11 && total < 13) return 'D';
+    if (total >= 13 && total <= 15) return 'E';
+    return 'N/A';
+  } 
 
 }

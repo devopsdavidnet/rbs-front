@@ -243,71 +243,6 @@
                 </tr>
               </table>
             </div>
-
-            <!--DDDDDDDDDDDDDDDDDDDDDD -->
-            <!--  <div style="margin-top: 16px; font-weight: bold">
-              Total Resultado Nivel: {{ sumaResultadoNivel }}
-            </div>
-
-            <div style="margin-top: 8px; font-weight: bold">
-              Niveles seleccionados: Nivel 1: {{ nivel1Count }} | Nivel 2:
-              {{ nivel2Count }} | Nivel 3: {{ nivel3Count }} | N/A:
-              {{ nivelNA }}
-            </div>
-
-            <div style="margin-top: 16px; font-weight: bold">
-              Total Resultado Nivel: {{ sumaResultadoNivel }}
-            </div>
-
-            <table>
-              <tr>
-                <td><strong> RESULTADO POR NIVEL </strong></td>
-              </tr>
-              <tr>
-                <td>
-                  Nivel 1: <strong>{{ nivel1Count }}</strong>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Nivel 2: <strong>{{ nivel2Count }}</strong>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Nivel 3: <strong>{{ nivel3Count }}</strong>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  N/A: <strong>{{ nivelNA }}</strong>
-                </td>
-              </tr>
-              <tr>
-                <td><strong> RESULTADO DE LA EVALUACIÓN </strong></td>
-              </tr>
-              <tr>
-                Puntos totales:
-              </tr>
-              <tr>
-                Categoría ORP :
-              </tr>
-              <tr>
-                <td>
-                  Puntos totales:
-                  <strong
-                    >{{ sumaResultadoPonderado }} Total Resultado Ponderado:
-                    {{ sumaResultadoPonderado | number : "1.2-2" }}</strong
-                  >
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  Categoría ORP: <strong>{{ determinarCategoriaORP() }}</strong>
-                </td>
-              </tr>
-            </table>
-               -->
             <div>
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button matStepperNext>Next</button>
@@ -321,12 +256,67 @@
           <p *ngIf="isMobile">IdE</p>
           <p *ngIf="!isMobile">Indicador de Exposición (IdE)</p>
         </ng-template>
+        <!--tab2 -->
+        <mat-card>
+          <form [formGroup]="formIndicador1">
+            <mat-table [dataSource]="dataSource" class="mat-elevation-z2">
+              <!-- Criterio -->
+              <ng-container matColumnDef="criterio">
+                <mat-header-cell *matHeaderCellDef> Criterio </mat-header-cell>
+                <mat-cell *matCellDef="let row; let i = index">
+                  {{ row.criterio }}
+                </mat-cell>
+              </ng-container>
 
-        <mat-label>company name</mat-label>
+              <!-- Calificación -->
+              <ng-container matColumnDef="calificacion">
+                <mat-header-cell *matHeaderCellDef>
+                  Calificación
+                </mat-header-cell>
+                <mat-cell *matCellDef="let row; let i = index">
+                  {{ row.calificacion }}
+                </mat-cell>
+              </ng-container>
+
+              <!-- Valor Resultado -->
+              <ng-container matColumnDef="valorResultado">
+                <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
+                <mat-cell *matCellDef="let row; let i = index">
+                  <div [formGroup]="getRowFormGroup(i)">
+                    <mat-form-field appearance="fill">
+                      <mat-select formControlName="valor">
+                        <mat-option *ngFor="let v of [1, 2, 3]" [value]="v">{{
+                          v
+                        }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row
+                *matHeaderRowDef="displayedColumns1"
+              ></mat-header-row>
+              <mat-row
+                *matRowDef="let row; columns: displayedColumns1"
+              ></mat-row>
+            </mat-table>
+
+            <!-- Mostrar suma y categoría en tiempo real -->
+            <div style="margin-top: 20px">
+              <strong>Suma total: {{ total }}</strong
+              ><br />
+              <strong>Categoría: {{ categoria }}</strong>
+            </div>
+          </form>
+        </mat-card>
+
+        <!-- fin tab 2-->
+        <!--<mat-label>company name</mat-label>
         <input matInput formControName="cname" />
         <br />
         <mat-label>location</mat-label>
-        <input matInput formControName="location" />
+        <input matInput formControName="location" />-->
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
@@ -338,7 +328,21 @@
           <p *ngIf="isMobile">NIV</p>
           <p *ngIf="!isMobile">Nivel de Intensidad de Vigilancia</p>
         </ng-template>
+              <div style="margin-bottom: 20px; text-align: center">
+  <h3 style="color: #0b3464">
+    Categoría ORP:
+    <span style="background-color: #cbe8f0; padding: 4px 8px">
+      {{ determinarCategoriaORP() }}
+    </span>
+  </h3>
 
+  <h3 style="color: #0b3464">
+    Categoría:
+    <span style="background-color: #cbe8f0; padding: 4px 8px">
+      {{ categoria }}
+    </span>
+  </h3>
+</div>
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>

@@ -31,6 +31,10 @@ public getParamOrp():Observable<any>{
 
 }
 
+public getIndicadorExposicion():Observable<any>{
+   //http://localhost:8090/api/indicador-exposicion/por-expecialidad/1
+   return this.http.get<any>(this.apiUrl+"/indicador-exposicion/por-expecialidad/1");
+}
 
 
 
