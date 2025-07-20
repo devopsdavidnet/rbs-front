@@ -274,19 +274,7 @@ mat-cell:last-child {
   }
 }
 
-.leyenda {
-  margin-top: 20px;
-  text-align: center;
 
-  .leyenda-items {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 8px;
-    font-size: 13px;
-  }
-
-
-}
 
 
 .celda-roja {
@@ -324,3 +312,107 @@ mat-cell:last-child {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.2; }
 }
+/* Estilo de colores */
+.rojo {
+  background-color: #e57373;
+  color: white;
+}
+.amarillo {
+  background-color: #fff176;
+  color: black;
+}
+.verde {
+  background-color: #81c784;
+  color: white;
+}
+
+/* Parpadeo */
+.parpadeo {
+  animation: parpadeo 1s infinite;
+}
+
+@keyframes parpadeo {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+/* Texto vertical */
+.vertical-header {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: center;
+  font-weight: bold;
+}
+
+.vertical-letter {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: center;
+  font-weight: bold;
+}
+
+.vertical-header {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: center;
+  font-weight: bold;
+  width: 32px;
+}
+
+.vertical-letter {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 1;
+}
+
+
+
+/*otro */
+.contenedor-matriz {
+  display: flex;
+  align-items: center;       /* Centra verticalmente */
+  gap: 12px;                 /* Espacio entre leyenda y tabla */
+  justify-content: center;   /* Centra horizontalmente si lo deseas */
+}
+
+.leyenda-vertical {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: center;
+  font-weight: bold;
+  font-size: 13px;
+  padding: 8px;
+  background-color: #eaeaea;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #333;
+  white-space: nowrap;
+  height: 30%;              /* Ajusta para que ocupe la altura de la tabla */
+}
+
+
+.leyenda-horizontal {
+  text-align: center;
+  font-weight: bold;
+  font-size: 13px;
+  padding: 8px;
+  background-color: #eaeaea;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #333;
+ 
+ 
+}
+/*otro*/
+
+
+.leyenda-celda {
+  text-align: center;
+  font-size: 12px;
+  padding: 4px;
+}
+

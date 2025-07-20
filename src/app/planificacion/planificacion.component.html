@@ -328,52 +328,64 @@
           <p *ngIf="isMobile">NIV</p>
           <p *ngIf="!isMobile">Nivel de Intensidad de Vigilancia</p>
         </ng-template>
- 
- 
- <mat-card class="matriz-card">
+<mat-card class="matriz-card">
   <h3 class="titulo-matriz">Tabla D1 – Matriz de intensidad de la vigilancia</h3>
 
-  <table mat-table [dataSource]="matriz" class="matriz-table">
-
-    <!-- Cabeceras horizontales de riesgo -->
-    <ng-container *ngFor="let col of columnasRiesgo" [matColumnDef]="col.valor">
-      <th mat-header-cell *matHeaderCellDef class="header-cell"> {{ col.valor }} </th>
-      <td mat-cell *matCellDef="let row">
-          <div [ngClass]="getColorClass(+col.valor, row.exposicion)">
-
-          {{ col.valor + row.exposicion }}
-        </div>
-      </td>
-    </ng-container>
-
-    <!-- Columna fija vertical izquierda (Exposición) -->
-    <ng-container matColumnDef="exposicionTexto">
-      <th mat-header-cell *matHeaderCellDef class="header-cell"> INDICADOR DE EXPOSICIÓN </th>
-      <td mat-cell *matCellDef="let row"> {{ row.exposicionTexto }} </td>
-    </ng-container>
-
-    <!-- Fila de encabezado -->
-    <tr mat-header-row *matHeaderRowDef="columnasVisibles"></tr>
-
-    <!-- Filas de datos -->
-    <tr mat-row *matRowDef="let row; columns: columnasVisibles"></tr>
-
-  </table>
-
-  <!-- Leyenda inferior -->
-  <div class="leyenda">
-    <div>INDICADOR DE RIESGO</div>
-    <div class="leyenda-items">
-      <div *ngFor="let col of columnasRiesgo">
-        <strong>{{ col.valor }}</strong><br>
-        {{ col.texto }}
-      </div>
+  <div class="contenedor-matriz">
+    <!-- Leyenda vertical al lado izquierdo -->
+    <div class="leyenda-vertical">
+      INDICADOR DE EXPOSICIÓN
     </div>
-  </div>
 
-  {{categoria}}
-  {{determinarCategoriaORP()}}
+    <!-- Tabla con leyenda inferior incluida -->
+    <table mat-table [dataSource]="matriz" class="matriz-table">
+      <!-- Columnas de riesgo -->
+      <ng-container *ngFor="let col of columnasRiesgo" [matColumnDef]="col.valor">
+        <th mat-header-cell *matHeaderCellDef class="header-cell"> {{ col.valor }} </th>
+        <td mat-cell *matCellDef="let row">
+          <div
+            [ngClass]="getColorClass(+col.valor, row.exposicion)"
+            [matTooltip]="mostrarTooltip(+col.valor, row.exposicion)"
+            matTooltipPosition="above"
+            *ngIf="col.valor && row.exposicion"
+          >
+            {{ col.valor + row.exposicion }}
+          </div>
+        </td>
+
+        <!-- Footer cell para leyenda -->
+        <td mat-footer-cell *matFooterCellDef>
+          <div class="leyenda-celda">
+            <strong>{{ col.valor }}</strong><br />
+            {{ col.texto }}
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Columna de exposición -->
+      <ng-container matColumnDef="exposicionTexto">
+        <th mat-header-cell *matHeaderCellDef class="header-cell"> </th>
+        <td mat-cell *matCellDef="let row"> {{ row.exposicionTexto }} {{ row.exposicion }} </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+
+
+      
+      <!-- Filas de datos -->
+      <tr mat-row *matRowDef="let row; columns: columnasVisibles"></tr>
+
+      <!-- Fila de leyenda -->
+      <tr mat-footer-row *matFooterRowDef="columnasVisibles"></tr>
+     
+    </table>
+   
+  </div>
+  <div class="leyenda-horizontal"> INDICADOR DE RIESGO</div>
 </mat-card>
+
+
+
 
 
  

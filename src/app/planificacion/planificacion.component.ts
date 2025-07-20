@@ -401,6 +401,8 @@ getColorClass(riesgo: number, exposicion: string): string {
   if (valor === actual) clase += ' parpadeo';
 
   return clase;
+
+
 }
 actualizarCategoriaSeleccionada(): void {
   this.categoriaRiesgoSeleccionada = this.determinarCategoriaORP();
@@ -408,5 +410,23 @@ actualizarCategoriaSeleccionada(): void {
   console.log('Actual:', this.categoriaRiesgoSeleccionada + this.categoriaExposicionSeleccionada);
 }
 
+mostrarTooltip(riesgo: number, exposicion: string): string {
+  const actual = `${this.categoriaRiesgoSeleccionada}${this.categoriaExposicionSeleccionada}`;
+  const valor = `${riesgo}${exposicion}`;
+
+  if (valor === actual) {
+    return 'IdR - IdE actual';
+  }
+
+  return ''; // Retorna cadena vacía en lugar de null
+}
+
+
+resaltarCelda(riesgo: number, exposicion: string): boolean {
+  return (
+    riesgo === this.categoriaRiesgoSeleccionada &&
+    exposicion === this.categoriaExposicionSeleccionada
+  );
+}
 
 }

@@ -12,6 +12,7 @@ import { EjecucionComponent } from './ejecucion/ejecucion.component';
 
 
 
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -84,6 +85,7 @@ import { CustomPaginatorIntl } from './custom/custom-paginator-intl'; // Ajusta 
     MatTabsModule,
     FormsModule,
      MatDialogModule,
+     
   ],
   providers: [{provide:MatPaginatorIntl,useClass:CustomPaginatorIntl}],
   bootstrap: [AppComponent]
