@@ -2,7 +2,7 @@
   <!-- TAB 1 -->
   <mat-tab label="Bandeja de Entrada">
     <ng-template mat-tab-label>
-      <img src="assets/images/information.png" width="22" height="22" />
+      <img src="assets/entrada.png" width="22" height="22" />
       Bandeja de Entrada
     </ng-template>
 
@@ -73,182 +73,374 @@
       <input matInput formControlName="location" readonly />
     </form>
 -->
-  <mat-tab label="Planificación">
+  <mat-tab label="Evaluación">
     <ng-template mat-tab-label>
-      <img src="assets/images/information.png" width="22" height="22" />
-      Planificación
+      <img src="assets/plan.png" width="22" height="22" />
+      Evaluación
     </ng-template>
 
     <mat-stepper labelPosition="bottom" orientation="horizontal" #stepper>
       <mat-step>
+        <!-- desde hasta aqui indicador de riesgo-->
         <ng-template matStepLabel>
           <p *ngIf="isMobile">IdR</p>
           <p *ngIf="!isMobile">Indicador de Riesgo (IdR)</p>
         </ng-template>
 
-        <mat-card>
-          <form [formGroup]="form">
-            <mat-table
-              [dataSource]="dataSource3"
-              matSort
-              class="responsive-table"
-            >
-              <ng-container matColumnDef="nro">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Nro.
-                </mat-header-cell>
+        <mat-tab-group>
+          <mat-tab label="ORP">
+            <div class="tab-content">
+              Contenido ORP
 
-                <mat-cell
-                  *matCellDef="let row; let i = index"
-                  data-label="Nro."
-                >
-                  {{ row.correlativo }}
-                </mat-cell>
-              </ng-container>
+              <mat-card>
+                <!--Desde aqui-->
+                <form [formGroup]="form">
+                  <mat-table
+                    [dataSource]="dataSource3"
+                    matSort
+                    class="responsive-table"
+                  >
+                    <ng-container matColumnDef="nro">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Nro.
+                      </mat-header-cell>
 
-              <ng-container matColumnDef="parametro">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Perfil de Riesgo de la Organización
-                </mat-header-cell>
-                <mat-cell
-                  *matCellDef="let row; let i = index"
-                  data-label="Perfil de Riesgo de la Organización"
-                >
-                  {{ row.parametroRiesgosOrganizacion }}
-                </mat-cell>
-              </ng-container>
+                      <mat-cell
+                        *matCellDef="let row; let i = index"
+                        data-label="Nro."
+                      >
+                        {{ row.correlativo }}
+                      </mat-cell>
+                    </ng-container>
 
-              <ng-container matColumnDef="nivel3">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Nivel 3 (menos deseable)
-                </mat-header-cell>
-                <mat-cell
-                  *matCellDef="let row; let i = index"
-                  data-label="Nivel 3 (menos deseable)"
-                >
-                  {{ row.nivelTresMenosDeseableo }}
-                </mat-cell>
-              </ng-container>
+                    <ng-container matColumnDef="parametro">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Perfil de Riesgo de la Organización
+                      </mat-header-cell>
+                      <mat-cell
+                        *matCellDef="let row; let i = index"
+                        data-label="Perfil de Riesgo de la Organización"
+                      >
+                        {{ row.parametroRiesgosOrganizacion }}
+                      </mat-cell>
+                    </ng-container>
 
-              <ng-container matColumnDef="nivel2">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Nivel 2 (promedio)
-                </mat-header-cell>
-                <mat-cell
-                  *matCellDef="let row; let i = index"
-                  data-label="Nivel 2 (promedio)"
-                >
-                  {{ row.nivelDosPromedio }}
-                </mat-cell>
-              </ng-container>
+                    <ng-container matColumnDef="nivel3">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Nivel 3 (menos deseable)
+                      </mat-header-cell>
+                      <mat-cell
+                        *matCellDef="let row; let i = index"
+                        data-label="Nivel 3 (menos deseable)"
+                      >
+                        {{ row.nivelTresMenosDeseableo }}
+                      </mat-cell>
+                    </ng-container>
 
-              <ng-container matColumnDef="nivel1">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Nivel 1 (más deseable)</mat-header-cell
-                >
-                <mat-cell
-                  *matCellDef="let row; let i = index"
-                  data-label="Nivel 1 (más deseable)"
-                >
-                  {{ row.nivelUnoMasDeseable }}
-                </mat-cell>
-              </ng-container>
+                    <ng-container matColumnDef="nivel2">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Nivel 2 (promedio)
+                      </mat-header-cell>
+                      <mat-cell
+                        *matCellDef="let row; let i = index"
+                        data-label="Nivel 2 (promedio)"
+                      >
+                        {{ row.nivelDosPromedio }}
+                      </mat-cell>
+                    </ng-container>
 
-              <ng-container matColumnDef="resultadoNivel">
-                <mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Resultado Nivel
-                </mat-header-cell>
-                <mat-cell
-                  *matCellDef="let row; let i = index"
-                  data-label="Resultado Nivel"
-                  [formGroup]="getFormGroupById(row.id)"
-                >
-                  <mat-form-field appearance="fill" style="width: 100px">
-                    <mat-select formControlName="resultadoNivel">
-                      <mat-option *ngFor="let nivel of niveles" [value]="nivel">
-                        {{ nivel }}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </mat-cell>
-              </ng-container>
+                    <ng-container matColumnDef="nivel1">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Nivel 1 (más deseable)</mat-header-cell
+                      >
+                      <mat-cell
+                        *matCellDef="let row; let i = index"
+                        data-label="Nivel 1 (más deseable)"
+                      >
+                        {{ row.nivelUnoMasDeseable }}
+                      </mat-cell>
+                    </ng-container>
 
-              <mat-header-row
-                *matHeaderRowDef="displayedColumns"
-              ></mat-header-row>
-              <mat-row
-                *matRowDef="let row; columns: displayedColumns"
-              ></mat-row>
-            </mat-table>
+                    <ng-container matColumnDef="resultadoNivel">
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Resultado Nivel
+                      </mat-header-cell>
+                      <mat-cell
+                        *matCellDef="let row; let i = index"
+                        data-label="Resultado Nivel"
+                        [formGroup]="getFormGroupById(row.id)"
+                      >
+                        <mat-form-field appearance="fill" style="width: 100px">
+                          <mat-select formControlName="resultadoNivel">
+                            <mat-option
+                              *ngFor="let nivel of niveles"
+                              [value]="nivel"
+                            >
+                              {{ nivel }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      </mat-cell>
+                    </ng-container>
 
-            <mat-paginator
-              [pageSize]="5"
-              [pageSizeOptions]="[5, 10, 20]"
-              showFirstLastButtons
-            >
-            </mat-paginator>
+                    <mat-header-row
+                      *matHeaderRowDef="displayedColumns"
+                    ></mat-header-row>
 
-            <!--DDDDDDDDDDDDDDDDDddddd-->
-            <div
-              style="
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 24px;
-                margin-top: 20px;
-                width: 100%;
-              "
-            >
-              <table class="tabla-estilo">
-                <tr style="background-color: #0b3464; color: white">
-                  <td colspan="2"><strong>RESULTADO POR NIVEL</strong></td>
-                  <td colspan="2">
-                    <strong>RESULTADO DE LA EVALUACIÓN</strong>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Nivel 1:</td>
-                  <td>
-                    <strong>{{ nivel1Count }}</strong>
-                  </td>
-                  <td>Puntos totales:</td>
-                  <td>
-                    <strong>{{ sumaResultadoPonderado }}</strong>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Nivel 2:</td>
-                  <td>
-                    <strong>{{ nivel2Count }}</strong>
-                  </td>
-                  <td>Categoría ORP:</td>
-                  <td style="background-color: #cbe8f0">
-                    <strong>{{ determinarCategoriaORP() }}</strong>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Nivel 3:</td>
-                  <td>
-                    <strong>{{ nivel3Count }}</strong>
-                  </td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>N/A:</td>
-                  <td>
-                    <strong>{{ nivelNA }}</strong>
-                  </td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </table>
+                    <mat-row
+                      *matRowDef="let row; columns: displayedColumns"
+                      [ngClass]="{
+                        'fila-destacada': row.idParamTipoPregunta !== 1
+                      }"
+                    ></mat-row>
+                  </mat-table>
+
+                  <mat-paginator
+                    [pageSize]="5"
+                    [pageSizeOptions]="[5, 10, 20]"
+                    showFirstLastButtons
+                  >
+                  </mat-paginator>
+
+                  <!--DDDDDDDDDDDDDDDDDddddd-->
+                  <div
+                    style="
+                      display: grid;
+                      grid-template-columns: 1fr 1fr;
+                      gap: 24px;
+                      margin-top: 20px;
+                      width: 100%;
+                    "
+                  >
+                    <table class="tabla-estilo">
+                      <tr style="background-color: #0b3464; color: white">
+                        <td colspan="2">
+                          <strong>RESULTADO POR NIVEL</strong>
+                        </td>
+                        <td colspan="2">
+                          <strong>RESULTADO DE LA EVALUACIÓN</strong>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Nivel 1:</td>
+                        <td>
+                          <strong>{{ nivel1Count }}</strong>
+                        </td>
+                        <td>Puntos totales:</td>
+                        <td>
+                          <strong>{{ sumaResultadoPonderado }}</strong>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Nivel 2:</td>
+                        <td>
+                          <strong>{{ nivel2Count }}</strong>
+                        </td>
+                        <td>Categoría ORP:</td>
+                        <td style="background-color: #cbe8f0">
+                          <strong>{{ determinarCategoriaORP() }}</strong>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Nivel 3:</td>
+                        <td>
+                          <strong>{{ nivel3Count }}</strong>
+                        </td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>N/A:</td>
+                        <td>
+                          <strong>{{ nivelNA }}</strong>
+                        </td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                  </div>
+                </form>
+              </mat-card>
             </div>
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
+          </mat-tab>
+
+          <mat-tab label="NCR">
+            <!--
+            <div class="center-container">
+              <form [formGroup]="formAerodromo">
+                <mat-form-field appearance="fill" class="w-full">
+                  <mat-label>Seleccione Aeródromo</mat-label>
+                  <mat-select
+                    formControlName="aerodromo"
+                    (selectionChange)="seleccionarAerodromo()"
+                  >
+                    <mat-option
+                      *ngFor="let aero of aerodromos"
+                      [value]="aero.codigo"
+                    >
+                      {{ aero.nombre }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </form>
+
+              <p *ngIf="formAerodromo.value.aerodromo">
+                Seleccionado:
+                <strong>{{ formAerodromo.value.aerodromo }}</strong>
+              </p>
+            </div> -->
+            <div class="center-container">
+              <form [formGroup]="formAerodromo" class="form-container">
+                <mat-form-field appearance="fill" class="w-full">
+                  <mat-label>AERÓDROMO</mat-label>
+                  <mat-select
+                    formControlName="aerodromo"
+                    (selectionChange)="seleccionarAerodromo()"
+                  >
+                    <mat-option
+                      *ngFor="let aero of aerodromos"
+                      [value]="aero.codigo"
+                    >
+                      {{ aero.nombre }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </form>
+              <!-- <p *ngIf="formAerodromo.value.aerodromo">
+                Seleccionado:
+                <strong>{{ formAerodromo.value.aerodromo }}</strong>
+              </p> -->
+              <div class="tabla-container" *ngIf="dataSourceLv.length > 0">
+                <table
+                  mat-table
+                  [dataSource]="dataSourceLv"
+                  class="tabla-aerodromo"
+                >
+                  <!-- LV -->
+                  <ng-container matColumnDef="lv">
+                    <th mat-header-cell *matHeaderCellDef>LV</th>
+                    <td mat-cell *matCellDef="let row">{{ row.lv }}</td>
+                  </ng-container>
+
+                  <!-- Lista Verificación -->
+                  <ng-container matColumnDef="listaVerificacion">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Lista verificación
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                      {{ row.listaVerificacion }}
+                    </td>
+                  </ng-container>
+
+                  <!-- Satisfactorio -->
+                  <ng-container matColumnDef="satisfactorio">
+                    <th mat-header-cell *matHeaderCellDef>Satisf.</th>
+                    <td mat-cell *matCellDef="let row">
+                      {{ row.satisfactorio }}
+                    </td>
+                  </ng-container>
+
+                  <!-- Insatisfactorio -->
+                  <ng-container matColumnDef="insatisfactorio">
+                    <th mat-header-cell *matHeaderCellDef>Insatisf.</th>
+                    <td mat-cell *matCellDef="let row">
+                      {{ row.insatisfactorio }}
+                    </td>
+                  </ng-container>
+
+                  <!-- No Aplica -->
+                  <ng-container matColumnDef="noAplica">
+                    <th mat-header-cell *matHeaderCellDef>No Aplica</th>
+                    <td mat-cell *matCellDef="let row">{{ row.noAplica }}</td>
+                  </ng-container>
+
+                  <!-- Observado -->
+                  <ng-container matColumnDef="observado">
+                    <th mat-header-cell *matHeaderCellDef>Observado</th>
+                    <td mat-cell *matCellDef="let row">{{ row.observado }}</td>
+                  </ng-container>
+
+                  <!-- Total Preguntas -->
+                  <ng-container matColumnDef="totalPreguntas">
+                    <th mat-header-cell *matHeaderCellDef>Total Preguntas</th>
+                    <td mat-cell *matCellDef="let row">
+                      {{ row.totalPreguntas }}
+                    </td>
+                  </ng-container>
+
+                  <!-- 🔹 Detalle -->
+                  <ng-container matColumnDef="detalle">
+                    <th mat-header-cell *matHeaderCellDef>Detalle</th>
+                    <td mat-cell *matCellDef="let row">
+                      <button
+                        mat-stroked-button
+                        color="primary"
+                        (click)="verDetalle(row)"
+                      >
+                        Ver detalle
+                      </button>
+                    </td>
+                  </ng-container>
+
+                  <!-- 🔹 Gráfico -->
+                  <ng-container matColumnDef="grafico">
+                    <th mat-header-cell *matHeaderCellDef>Gráfico</th>
+                    <td mat-cell *matCellDef="let row">
+                      <button
+                        mat-icon-button
+                        color="accent"
+                        (click)="verGrafico(row)"
+                      >
+                        <mat-icon>bar_chart</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+
+                  <!-- Botón gráfico -->
+                  <!--<ng-container matColumnDef="grafico">
+                    <th mat-header-cell *matHeaderCellDef>Gráfico</th>
+                    <td mat-cell *matCellDef="let element">
+                      <button
+                        mat-icon-button
+                        color="primary"
+                        (click)="verGrafico(element)"
+                      >
+                        <mat-icon>bar_chart</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+                -->
+                  <!-- Header y filas -->
+                  <tr mat-header-row *matHeaderRowDef="listaVerificacion"></tr>
+                  <tr
+                    mat-row
+                    *matRowDef="let row; columns: listaVerificacion"
+                  ></tr>
+
+                  <!-- Totales -->
+                  <tr class="fila-total">
+                    <td colspan="2" class="total-label">Total</td>
+                    <td>{{ getTotal("satisfactorio") }}</td>
+                    <td>{{ getTotal("insatisfactorio") }}</td>
+                    <td>{{ getTotal("noAplica") }}</td>
+                    <td>{{ getTotal("observado") }}</td>
+                    <td>{{ getTotal("totalPreguntas") }}</td>
+                  </tr>
+                </table>
+              </div>
             </div>
-          </form>
-        </mat-card>
+          </mat-tab>
+
+          <mat-tab label="SMS">
+            <div>Contenido SMS</div>
+          </mat-tab>
+        </mat-tab-group>
+
+        <!-- hasta aqui indicador de riesgo-->
       </mat-step>
 
       <mat-step>
@@ -303,10 +495,32 @@
             </mat-table>
 
             <!-- Mostrar suma y categoría en tiempo real -->
-            <div style="margin-top: 20px">
-              <strong>Suma total: {{ total }}</strong
-              ><br />
-              <strong>Categoría: {{ categoria }}</strong>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+                margin-top: 20px;
+                width: 100%;
+              "
+            >
+              <table class="tabla-estilo">
+                <tr style="background-color: #0b3464; color: white">
+                  <td><strong>SUMA TOTAL</strong></td>
+                  <td>
+                    <strong>CATEGORIA</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong> {{ total }}</strong>
+                  </td>
+
+                  <td style="background-color: #cbe8f0">
+                    <strong>{{ categoria }}</strong>
+                  </td>
+                </tr>
+              </table>
             </div>
           </form>
         </mat-card>
@@ -325,76 +539,161 @@
 
       <mat-step>
         <ng-template matStepLabel>
-          <p *ngIf="isMobile">NIV</p>
-          <p *ngIf="!isMobile">Nivel de Intensidad de Vigilancia</p>
+          <p *ngIf="isMobile">MIV</p>
+          <p *ngIf="!isMobile">Matriz de Intensidad de Vigilancia</p>
         </ng-template>
-<mat-card class="matriz-card">
-  <h3 class="titulo-matriz">Tabla D1 – Matriz de intensidad de la vigilancia</h3>
+        <mat-card class="matriz-card">
+          <h3 class="titulo-matriz">Matriz de intensidad de la vigilancia</h3>
 
-  <div class="contenedor-matriz">
-    <!-- Leyenda vertical al lado izquierdo -->
-    <div class="leyenda-vertical">
-      INDICADOR DE EXPOSICIÓN
-    </div>
+          <div class="contenedor-matriz">
+            <!-- Leyenda vertical al lado izquierdo -->
+            <div class="leyenda-vertical">INDICADOR DE EXPOSICIÓN</div>
 
-    <!-- Tabla con leyenda inferior incluida -->
-    <table mat-table [dataSource]="matriz" class="matriz-table">
-      <!-- Columnas de riesgo -->
-      <ng-container *ngFor="let col of columnasRiesgo" [matColumnDef]="col.valor">
-        <th mat-header-cell *matHeaderCellDef class="header-cell"> {{ col.valor }} </th>
-        <td mat-cell *matCellDef="let row">
-          <div
-            [ngClass]="getColorClass(+col.valor, row.exposicion)"
-            [matTooltip]="mostrarTooltip(+col.valor, row.exposicion)"
-            matTooltipPosition="above"
-            *ngIf="col.valor && row.exposicion"
-          >
-            {{ col.valor + row.exposicion }}
+            <!-- Tabla con leyenda inferior incluida -->
+            <table mat-table [dataSource]="matriz" class="matriz-table">
+              <!-- Columnas de riesgo -->
+              <ng-container
+                *ngFor="let col of columnasRiesgo"
+                [matColumnDef]="col.valor"
+              >
+                <th mat-header-cell *matHeaderCellDef class="header-cell">
+                  {{ col.valor }}
+                </th>
+                <td mat-cell *matCellDef="let row">
+                  <div
+                    [ngClass]="getColorClass(+col.valor, row.exposicion)"
+                    [matTooltip]="mostrarTooltip(+col.valor, row.exposicion)"
+                    matTooltipPosition="above"
+                    *ngIf="col.valor && row.exposicion"
+                  >
+                    {{ col.valor + row.exposicion }}
+                  </div>
+                </td>
+
+                <!-- Footer cell para leyenda -->
+                <td mat-footer-cell *matFooterCellDef>
+                  <div class="leyenda-celda">
+                    <strong>{{ col.valor }}</strong
+                    ><br />
+                    {{ col.texto }}
+                  </div>
+                </td>
+              </ng-container>
+
+              <!-- Columna de exposición -->
+              <ng-container matColumnDef="exposicionTexto">
+                <th mat-header-cell *matHeaderCellDef class="header-cell"></th>
+                <td mat-cell *matCellDef="let row">
+                  {{ row.exposicionTexto }} {{ row.exposicion }}
+                </td>
+                <td mat-footer-cell *matFooterCellDef></td>
+              </ng-container>
+
+              <!-- Filas de datos -->
+              <tr mat-row *matRowDef="let row; columns: columnasVisibles"></tr>
+
+              <!-- Fila de leyenda -->
+              <tr mat-footer-row *matFooterRowDef="columnasVisibles"></tr>
+            </table>
           </div>
-        </td>
 
-        <!-- Footer cell para leyenda -->
-        <td mat-footer-cell *matFooterCellDef>
-          <div class="leyenda-celda">
-            <strong>{{ col.valor }}</strong><br />
-            {{ col.texto }}
-          </div>
-        </td>
-      </ng-container>
+          <div class="leyenda-horizontal">INDICADOR DE RIESGO</div>
 
-      <!-- Columna de exposición -->
-      <ng-container matColumnDef="exposicionTexto">
-        <th mat-header-cell *matHeaderCellDef class="header-cell"> </th>
-        <td mat-cell *matCellDef="let row"> {{ row.exposicionTexto }} {{ row.exposicion }} </td>
-        <td mat-footer-cell *matFooterCellDef></td>
-      </ng-container>
+          <table border="0">
+            <tr class="titulo-matriz">
+              <td colspan="4">Valor de la Matriz</td>
+            </tr>
+            <tr class="titulo-matriz">
+              <td>IDR</td>
+              <td>IDE</td>
+              <td>Intensidad de Vigilancia</td>
+            </tr>
+            <tr>
+              <td>{{ determinarCategoriaORP() }}</td>
+              <td>{{ categoria }}</td>
+              <td style="width: 200px">
+                <div *ngIf="resultadoFinal as rf">
+                  <div
+                    [ngStyle]="{
+                      'background-color': getNivelIntensidad(rf.resultadoCruce)
+                        .color,
+                      color: 'white',
+                      padding: '1px',
+                      'border-radius': '8px',
+                      'text-align': 'center',
 
+                      'margin-top': '1rem'
+                    }"
+                  >
+                    <div>Resultado: {{ rf.resultadoCruce }}</div>
+                    <div>
+                      {{ getNivelIntensidad(rf.resultadoCruce).nivel }}
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </mat-card>
+        <!-- inicio de la muestra -->
 
+        <!-- <form [formGroup]="formularioMuestra">-->
+        <mat-table [dataSource]="dataSource">
+          <ng-container matColumnDef="criterio">
+            <mat-header-cell *matHeaderCellDef> Criterio </mat-header-cell>
+            <mat-cell *matCellDef="let row; let i = index">
+              {{ row.criterio }}
+            </mat-cell>
+          </ng-container>
 
-      
-      <!-- Filas de datos -->
-      <tr mat-row *matRowDef="let row; columns: columnasVisibles"></tr>
+          <ng-container matColumnDef="poblacion">
+            <mat-header-cell *matHeaderCellDef="poblacion">
+              Población
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row; let i = index">
+              <mat-form-field appearance="fill">
+                <mat-select
+                  formControlName="poblacion"
+                  placeholder="Seleccionar"
+                >
+                  <mat-option
+                    *ngFor="let rango of poblacionRangos"
+                    [value]="rango.valor"
+                  >
+                    {{ rango.label }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-cell>
+          </ng-container>
+          <!-- Columna de Resultado-->
+          <ng-container matColumnDef="resultado">
+            <mat-header-cell *matHeaderCellDef> Resultado </mat-header-cell>
+            <mat-cell *matCellDef="let row; let i = index">
+              {{ getResultado(i) }}
+            </mat-cell>
+          </ng-container>
 
-      <!-- Fila de leyenda -->
-      <tr mat-footer-row *matFooterRowDef="columnasVisibles"></tr>
-     
-    </table>
-   
-  </div>
-  <div class="leyenda-horizontal"> INDICADOR DE RIESGO</div>
-</mat-card>
+          <mat-row *matRowDef="let row; columns: displayedColumns2"></mat-row>
+        </mat-table>
+        <!-- </form>-->
 
+        <!-- fin de la muestra-->
 
-
-
-
- 
- 
- 
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </div>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>
+          <p *ngIf="isMobile">DE</p>
+          <p *ngIf="!isMobile">Datos Especificos</p>
+        </ng-template>
+        1
+
+        <button mat-button matStepperPrevious>Back</button>
       </mat-step>
 
       <mat-step>

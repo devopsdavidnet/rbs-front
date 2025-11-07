@@ -9,17 +9,13 @@ import { PlantillaComponent } from './plantilla/plantilla.component';
 import { PlanificacionComponent } from './planificacion/planificacion.component';
 import { EjecucionComponent } from './ejecucion/ejecucion.component';
 
-
-
-
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -28,21 +24,24 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatTreeModule} from '@angular/material/tree';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTreeModule } from '@angular/material/tree';
 import { MatTableModule } from '@angular/material/table';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatStepperModule} from '@angular/material/stepper';
-import { HttpClientModule } from '@angular/common/http'; 
+import { MatDividerModule } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatStepperModule } from '@angular/material/stepper';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginatorIntl } from '@angular/material/paginator';
-import { CustomPaginatorIntl } from './custom/custom-paginator-intl'; // Ajusta la ruta según tu estructura
-
+import { CustomPaginatorIntl } from './custom/custom-paginator-intl';
+import { DetalleLvComponent } from './detalle-lv/detalle-lv.component';
+import { GraficosLvComponent } from './graficos-lv/graficos-lv.component';
+import { GraficoAerodromoComponent } from './components/grafico-aerodromo/grafico-aerodromo.component'; // Ajusta la ruta según tu estructura
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -50,7 +49,10 @@ import { CustomPaginatorIntl } from './custom/custom-paginator-intl'; // Ajusta 
     HomeComponent,
     PlantillaComponent,
     PlanificacionComponent,
-    EjecucionComponent
+    EjecucionComponent,
+    DetalleLvComponent,
+    GraficosLvComponent,
+    GraficoAerodromoComponent,
   ],
   imports: [
     MatPaginatorModule,
@@ -76,7 +78,7 @@ import { CustomPaginatorIntl } from './custom/custom-paginator-intl'; // Ajusta 
     MatTreeModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule,    
+    MatInputModule,
     MatSelectModule,
     MatCheckboxModule,
     MatRadioModule,
@@ -84,15 +86,10 @@ import { CustomPaginatorIntl } from './custom/custom-paginator-intl'; // Ajusta 
     MatNativeDateModule,
     MatTabsModule,
     FormsModule,
-     MatDialogModule,
-     
+    MatDialogModule,
+    NgChartsModule,
   ],
-  providers: [{provide:MatPaginatorIntl,useClass:CustomPaginatorIntl}],
-  bootstrap: [AppComponent]
+  providers: [{ provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
-
-
-
-
-
+export class AppModule {}

@@ -12,17 +12,73 @@
     [opened]="isMobile ? 'false' : 'true'"
   >
     <mat-nav-list>
-      <a mat-list-item routerLink="/home" (click)="closeSidenav()">
+      <a
+        mat-list-item
+        routerLink="/home"
+        (click)="closeSidenav()"
+        matTooltip="Inicio"
+      >
         <span class="entry">
-          <img src="assets/images/home.png" class="menu-icon" alt="Home" />
+          <img src="assets/inicio.png" class="menu-icon" alt="Inicio" />
           <span *ngIf="!isCollapsed">Inicio</span>
         </span>
       </a>
 
-      <a mat-list-item routerLink="/plan" (click)="closeSidenav()">
+      <a
+        mat-list-item
+        routerLink="/plan"
+        (click)="closeSidenav()"
+        matTooltip="Evaluación ORP"
+      >
         <span class="entry">
-          <img src="assets/images/register.png" class="menu-icon" />
-          <span *ngIf="!isCollapsed">Registrar</span>
+          <img src="assets/evaluacion.png" class="menu-icon" />
+          <span *ngIf="!isCollapsed">Evaluación ORP</span>
+        </span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/plan"
+        (click)="closeSidenav()"
+        matTooltip="Ejecución"
+      >
+        <span class="entry">
+          <img src="assets/execution.png" class="menu-icon" />
+          <span *ngIf="!isCollapsed">Ejecución</span>
+        </span>
+      </a>
+
+      <a
+        mat-list-item
+        routerLink="/plan"
+        (click)="closeSidenav()"
+        matTooltip="Analisis"
+      >
+        <span class="entry">
+          <img src="assets/analysis.png" class="menu-icon" />
+          <span *ngIf="!isCollapsed">Analisis</span>
+        </span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/plan"
+        (click)="closeSidenav()"
+        matTooltip="Seguimiento"
+      >
+        <span class="entry">
+          <img src="assets/tracking.png" class="menu-icon" />
+          <span *ngIf="!isCollapsed">Seguimiento</span>
+        </span>
+      </a>
+
+      <a
+        mat-list-item
+        routerLink="/plan"
+        (click)="closeSidenav()"
+        matTooltip="Cierre"
+      >
+        <span class="entry">
+          <img src="assets/cierre.png" class="menu-icon" />
+          <span *ngIf="!isCollapsed">Cierre</span>
         </span>
       </a>
       <a mat-list-item>

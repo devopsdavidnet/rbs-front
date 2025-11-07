@@ -1,0 +1,74 @@
+<h2 mat-dialog-title>Evaluación de Cumplimiento - RAB 137</h2>
+
+<mat-dialog-content class="mat-typography">
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="referencia">
+        <th mat-header-cell *matHeaderCellDef>Referencia</th>
+        <td mat-cell *matCellDef="let element">**{{ element.referencia }}**</td>
+      </ng-container>
+
+      <ng-container matColumnDef="preguntaReglamento">
+        <th mat-header-cell *matHeaderCellDef>Pregunta Reg.</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.preguntaReglamento }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="orientacionEvaluacion">
+        <th mat-header-cell *matHeaderCellDef>
+          Orientación para la Evaluación
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.orientacionEvaluacion }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="estadoCumplimiento">
+        <th mat-header-cell *matHeaderCellDef>Estado de Cumplimiento</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.estadoCumplimiento }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="indiceRiesgo">
+        <th mat-header-cell *matHeaderCellDef>Indice de Riesgo</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.indiceRiesgo }}
+        </td>
+      </ng-container>
+
+      <!--
+      <ng-container matColumnDef="estadoCumplimiento">
+        <th mat-header-cell *matHeaderCellDef>Estado de Cumplimiento</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field appearance="outline" class="compliance-select">
+            <mat-select
+              [value]="element.estadoCumplimiento"
+              (selectionChange)="onEstadoChange(element, $event.value)"
+            >
+              <mat-option value="Seleccione cumplimiento" disabled
+                >Seleccione cumplimiento</mat-option
+              >
+              <mat-option
+                *ngFor="let opcion of opcionesCumplimiento"
+                [value]="opcion"
+              >
+                {{ opcion }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </ng-container> 
+       -->
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cerrar</button>
+  <!--<button mat-raised-button color="primary">Guardar</button>-->
+</mat-dialog-actions>

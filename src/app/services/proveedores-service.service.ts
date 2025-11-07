@@ -27,13 +27,13 @@ public getProveedores():Observable<any>{
 public getParamOrp():Observable<any>{
    //return this.http.get<any>(this.apiUrl+"paramorp");
    //http://localhost:8090/api/paramorp/por-especialidad/1
-   return this.http.get<any>(this.apiUrl+"/paramorp/por-especialidad/1")
+   return this.http.get<any>(this.apiUrl+"/paramorp/por-especialidad/2")
 
 }
 
 public getIndicadorExposicion():Observable<any>{
    //http://localhost:8090/api/indicador-exposicion/por-expecialidad/1
-   return this.http.get<any>(this.apiUrl+"/indicador-exposicion/por-expecialidad/1");
+   return this.http.get<any>(this.apiUrl+"/indicador-exposicion/por-expecialidad/2");
 }
 
 

@@ -11,5 +11,6 @@ export default interface Orp {
     fechaRegistro: String;
     resultadoNivel: number;
     peso: number;
+    idParamTipoPregunta: number;
 }
 

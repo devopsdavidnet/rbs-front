@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Gráfico de Verificación</h2>
+<mat-dialog-content>
+  <div style="display: block">
+    <canvas
+      baseChart
+      [data]="barChartData"
+      [type]="barChartType"
+      [options]="barChartOptions"
+    >
+    </canvas>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="primary">Cerrar</button>
+</mat-dialog-actions>
