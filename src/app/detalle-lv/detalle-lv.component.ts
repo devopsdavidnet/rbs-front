@@ -29,7 +29,7 @@ export const DATOS_AERODROMO: AuditoriaAerodromo[] = [
   {
     referencia: 'RAB 137.105',
     preguntaReglamento:
-      '¿El aeródromo notifica el punto de referencia del aeródromo?',
+      '¿El aeródromo notifica el  punto de referencia del aeródromo?',
     orientacionEvaluacion:
       'Verificar que: Se ha establecido un ARP. El operador de aeródromo ha determinado la ubicación del ARP y lo ha notificado al AIS, en grados, minutos y segundos.',
     estadoCumplimiento: 'Insatisfactorio',
