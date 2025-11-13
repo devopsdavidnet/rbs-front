@@ -10,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { AfterViewInit } from '@angular/core';
 import { DetalleLvComponent } from '../detalle-lv/detalle-lv.component';
 import { GraficoAerodromoComponent } from '../components/grafico-aerodromo/grafico-aerodromo.component';
+import { DetalleNcrComponent } from '../detalle-ncr/detalle-ncr.component';
 
 export interface FilaVerificacion {
   lv: string;
@@ -508,6 +509,21 @@ export class PlanificacionComponent implements OnInit {
     });
   }
 
+  verDetalleNcr(): void {
+    const dataTotales = {
+      satisfactorio: this.getTotal('satisfactorio'),
+      insatisfactorio: this.getTotal('insatisfactorio'),
+      noAplica: this.getTotal('noAplica'),
+      observado: this.getTotal('observado'),
+      totalPreguntas: this.getTotal('totalPreguntas'),
+    };
+
+    this.dialog.open(DetalleNcrComponent, {
+      width: '450px',
+      data: dataTotales,
+    });
+  }
+
   verDetalle(row: any) {
     console.log('Detalle del registro:', row);
 
@@ -522,6 +538,7 @@ export class PlanificacionComponent implements OnInit {
 
     const dialogRef = this.dialog.open(DetalleLvComponent, {
       width: '1000px',
+      data: row,
       disableClose: true,
 
       position: {

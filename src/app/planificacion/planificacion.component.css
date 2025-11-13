@@ -418,7 +418,7 @@ mat-cell:last-child {
 }
 
 .form-container {
-  width: 400px;
+  width: 50%;
   margin-bottom: 15px;
 }
 
@@ -452,4 +452,43 @@ tr:nth-child(even) td.mat-cell {
 .total-label {
   text-align: left;
   padding-left: 10px;
+}
+
+
+.tabla-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Tabla principal */
+.tabla-aerodromo {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* 🔹 Fila de totales alineada usando grid */
+.fila-totales {
+  display: grid;
+  grid-template-columns: 8% 28% repeat(7, 1fr);
+  /* Ajusta porcentajes para que coincidan con tus columnas */
+  border-top: 2px solid #1976d2;
+  background-color: #e3f2fd;
+  font-weight: bold;
+  text-align: center;
+}
+
+.fila-totales .col {
+  padding: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.total-label {
+  text-align: right;
+  padding-right: 10px;
+}
+
+/* Encabezado de tabla */
+.tabla-aerodromo th {
+  background-color: #1976d2;
+  color: white;
 }

@@ -1,0 +1,83 @@
+<h2 mat-dialog-title class="titulo-modal">
+  Detalle del Nivel de Cumplimiento Reglamentario
+</h2>
+<mat-dialog-content class="contenido-modal">
+  <table class="tabla-detalle">
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <th>Tipo</th>
+            <th>Valor</th>
+          </tr>
+          <tr>
+            <td>Satisfactorio</td>
+            <td>{{ data.satisfactorio }}</td>
+          </tr>
+          <tr>
+            <td>Insatisfactorio</td>
+            <td>{{ data.insatisfactorio }}</td>
+          </tr>
+          <tr>
+            <td>No Aplica</td>
+            <td>{{ data.noAplica }}</td>
+          </tr>
+          <tr>
+            <td>Observado</td>
+            <td>{{ data.observado }}</td>
+          </tr>
+          <tr>
+            <td>Total Preguntas</td>
+            <td>{{ data.totalPreguntas }}</td>
+          </tr>
+        </table>
+      </td>
+      <td>
+        <table>
+          <tr>
+            <td>NCR:</td>
+            <td>{{ resultadoNcr }}</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <table
+                mat-table
+                [dataSource]="dataNcr"
+                class="mat-elevation-z2 tabla-ncr"
+              >
+                <!-- Columna Cumplimiento -->
+                <ng-container matColumnDef="cumplimiento">
+                  <th mat-header-cell *matHeaderCellDef>Cumplimiento %</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.cumplimiento }}
+                  </td>
+                </ng-container>
+
+                <!-- Columna Valor NCR -->
+                <ng-container matColumnDef="valor">
+                  <th mat-header-cell *matHeaderCellDef>Valor NCR</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.valor }}
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                  [ngClass]="{ resaltado: row.resaltar }"
+                ></tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="dialogRef.close()">
+    Cerrar
+  </button>
+</mat-dialog-actions>

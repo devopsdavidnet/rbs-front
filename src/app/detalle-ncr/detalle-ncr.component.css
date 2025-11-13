@@ -1,0 +1,15 @@
+.tabla-ncr th {
+  background-color: #003366; /* Azul oscuro */
+  color: white;
+  font-weight: bold;
+}
+
+.tabla-ncr td, .tabla-ncr th {
+  border: 1px solid #cccccc;
+  
+}
+
+.resaltado {
+  background-color: #c5e8c7 !important; /* Verde suave */
+  border: 2px solid green !important;
+}
