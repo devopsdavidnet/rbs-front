@@ -22,6 +22,12 @@ export interface FilaVerificacion {
   totalPreguntas: number;
 }
 
+export interface FilaVerificacionSms {
+  item: string;
+  indicadorCumplimiento: string;
+  eficacia: string;
+}
+
 interface Fila {
   nro: number;
   parametro: string;
@@ -47,6 +53,7 @@ export class PlanificacionComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   dataSourceLv: FilaVerificacion[] = [];
+  dataSourceSms: FilaVerificacionSms[] = [];
 
   listaVerificacion = [
     'lv',
@@ -59,6 +66,8 @@ export class PlanificacionComponent implements OnInit {
     'detalle',
     'grafico',
   ];
+
+  listaSms = ['item', 'indicadorCumplimiento', 'eficacia'];
 
   displayedColumns: string[] = [
     'nro',
@@ -454,6 +463,613 @@ export class PlanificacionComponent implements OnInit {
       },
     ],
   };
+  /*  hasta aqui las lv*/
+  /*  preguntas sms  */
+
+  // 🔹 Datos simulados (podrían venir del backend)
+
+  dataPorAerodromoSms: Record<string, FilaVerificacionSms[]> = {
+    SLLP: [
+      {
+        item: '1',
+        indicadorCumplimiento:
+          'Existe un sistema de notificación confidencial, que captura los errores, peligros y cuasicolisiones, que es fácil de usar y accesible a todo el personal.',
+        eficacia: 'S',
+      },
+      {
+        item: '2',
+        indicadorCumplimiento:
+          'El sistema de notificación confidencial brinda retroalimentación a la persona que notifica sobre las medidas adoptadas (o no adoptadas) y, cuando sea adecuado, al resto de la organización.',
+        eficacia: 'E',
+      },
+      {
+        item: '3',
+        indicadorCumplimiento:
+          'El personal expresa su confianza en la política y en los procesos de notificación de la organización.',
+        eficacia: 'E',
+      },
+      {
+        item: '4',
+        indicadorCumplimiento:
+          'Existe un proceso que define cómo se identifica peligros de múltiples fuentes utilizando métodos reactivos y proactivos (internos y externos).',
+        eficacia: 'E',
+      },
+      {
+        item: '5',
+        indicadorCumplimiento:
+          'El proceso de identificación de peligros identifica los peligros relacionados con la actuación humana.',
+        eficacia: 'E',
+      },
+      {
+        item: '6',
+        indicadorCumplimiento:
+          'Existe un proceso para analizar los datos y la información sobre seguridad operacional para buscar tendencias y obtener información de gestión utilizable.',
+        eficacia: 'O',
+      },
+      {
+        item: '7',
+        indicadorCumplimiento:
+          'Las investigaciones sobre seguridad operacional son realizadas por personal debidamente capacitado para identificar las causas de fondo (no sólo lo que sucedió, sino por qué sucedió).',
+        eficacia: 'E',
+      },
+      {
+        item: '8',
+        indicadorCumplimiento:
+          'Existe un proceso para la gestión de riesgos que incluye el análisis y evaluación de los riesgos asociados con los peligros identificados, expresado en términos de probabilidad y gravedad (o alguna metodología alternativa).',
+        eficacia: 'O',
+      },
+      {
+        item: '9',
+        indicadorCumplimiento:
+          'Hay criterios para evaluar el nivel de riesgo que la organización está dispuesta a aceptar, y las evaluaciones y clasificaciones de riesgos están debidamente justificadas.',
+        eficacia: 'O',
+      },
+      {
+        item: '10',
+        indicadorCumplimiento:
+          'La organización cuenta con un proceso para tomar decisiones y aplicar controles de riesgo adecuados y eficaces.',
+        eficacia: 'O',
+      },
+      {
+        item: '11',
+        indicadorCumplimiento:
+          'La alta gerencia tiene visibilidad de los peligros cuyo riesgo asociado es alto o medio, así como de su mitigación y control.',
+        eficacia: 'O',
+      },
+      {
+        item: '12',
+        indicadorCumplimiento:
+          'Los indicadores de rendimiento en materia de seguridad operacional (SPI) relacionados con los objetivos de seguridad operacional de la organización han sido definidos, promulgados y son observados y analizados para buscar tendencias.',
+        eficacia: 'P',
+      },
+      {
+        item: '13',
+        indicadorCumplimiento:
+          'Los controles y mitigaciones de los riesgos se verifican/auditan para confirmar que están funcionando y son eficaces.',
+        eficacia: 'O',
+      },
+      {
+        item: '14',
+        indicadorCumplimiento:
+          'El aseguramiento de la seguridad operacional toma en cuenta las actividades llevadas a cabo por todas las organizaciones directamente contratadas.',
+        eficacia: 'S',
+      },
+      {
+        item: '15',
+        indicadorCumplimiento:
+          'Se define las responsabilidades y la obligación de rendición de cuentas para garantizar el cumplimiento de las normas de la seguridad operacional y se identifica claramente los requisitos aplicables en los manuales y procedimientos de la organización.',
+        eficacia: 'S',
+      },
+      {
+        item: '16',
+        indicadorCumplimiento:
+          'Existe un programa de auditoría interna que incluye detalles sobre el calendario de auditorías, los procedimientos para las auditorías, la notificación, el seguimiento y los registros.',
+        eficacia: 'S',
+      },
+      {
+        item: '17',
+        indicadorCumplimiento:
+          'Se define las responsabilidades del proceso de auditoría interna y existe una persona o grupo de personas con responsabilidades de auditoría interna con acceso directo al ejecutivo/ gerente responsable.',
+        eficacia: 'O',
+      },
+      {
+        item: '18',
+        indicadorCumplimiento:
+          'Después de una auditoría, se realiza un análisis apropiado de los factores causales y se toman medidas correctivas/ preventivas.',
+        eficacia: 'O',
+      },
+      {
+        item: '19',
+        indicadorCumplimiento:
+          'La organización cuenta con un proceso para identificar si los cambios tienen un impacto en la seguridad operacional, así como para gestionar los riesgos identificados de acuerdo con los procesos de gestión de riesgos de seguridad operacional existentes.',
+        eficacia: 'O',
+      },
+      {
+        item: '20',
+        indicadorCumplimiento:
+          'Las cuestiones relativas a los factores humanos (HF) se han considerado como parte del proceso de gestión del cambio y, donde corresponde, la organización ha aplicado las normas de diseño adecuadas, centradas en el factor humano, para el diseño de los equipos y el entorno físico.',
+        eficacia: 'O',
+      },
+      {
+        item: '21',
+        indicadorCumplimiento:
+          'La organización supervisa y evalúa continuamente sus procesos de SMS para mantener o mejorar continuamente la eficacia total del SMS.',
+        eficacia: 'O',
+      },
+      {
+        item: '22',
+        indicadorCumplimiento:
+          'Existe una política de seguridad operacional, firmada por el Gerente Responsable, que incluye un compromiso hacia la mejora continua; cumple con todos los requisitos y normas legales aplicables; y toma en consideración las mejores prácticas.',
+        eficacia: 'O',
+      },
+      {
+        item: '23',
+        indicadorCumplimiento:
+          'La política de seguridad operacional incluye una declaración para proporcionar los recursos adecuados, y la organización está gestionándolos con el objetivo de anticipar y subsanar cualquier deficiencia.',
+        eficacia: 'O',
+      },
+      {
+        item: '24',
+        indicadorCumplimiento:
+          'Existen políticas establecidas para las funciones críticas de seguridad operacional, relacionadas con todos los aspectos de aptitud para el trabajo (por ejemplo, la política sobre alcohol y drogas o la fatiga).',
+        eficacia: 'O',
+      },
+      {
+        item: '25',
+        indicadorCumplimiento:
+          'Existe un medio para la comunicación de la política de seguridad operacional.',
+        eficacia: 'O',
+      },
+      {
+        item: '26',
+        indicadorCumplimiento:
+          'El ejecutivo responsable y el equipo de la alta gerencia promueven una cultura positiva de seguridad operacional/justicia y demuestran su compromiso con la política de seguridad operacional, a través de la participación activa y visible en el sistema de gestión de la seguridad operacional.',
+        eficacia: 'O',
+      },
+      {
+        item: '27',
+        indicadorCumplimiento:
+          'La política sobre seguridad operacional fomenta activamente las notificaciones sobre seguridad operacional.',
+        eficacia: 'O',
+      },
+      {
+        item: '28',
+        indicadorCumplimiento:
+          'Se ha definido una política y principios de una cultura justa que identifican claramente los comportamientos aceptables e inaceptables para promover una cultura justa.',
+        eficacia: 'O',
+      },
+      {
+        item: '29',
+        indicadorCumplimiento:
+          'Se han establecido objetivos de seguridad operacional coherentes con la política de seguridad operacional y éstos son comunicados a toda la organización.',
+        eficacia: 'O',
+      },
+      {
+        item: '30',
+        indicadorCumplimiento:
+          'El programa estatal de seguridad operacional (SSP) está siendo considerado y abordado según corresponda.',
+        eficacia: 'O',
+      },
+      {
+        item: '31',
+        indicadorCumplimiento:
+          'Se ha nombrado un ejecutivo responsable con plena responsabilidad y obligación de rendición de cuentas para garantizar que el SMS se aplique correctamente y funcione con eficacia.',
+        eficacia: 'E',
+      },
+      {
+        item: '32',
+        indicadorCumplimiento:
+          'El ejecutivo/ gerente responsable es plenamente consciente de sus funciones y responsabilidades en materia del SMS con respecto a la política de seguridad operacional, los requisitos de seguridad operacional y la cultura de seguridad operacional de la organización.',
+        eficacia: 'E',
+      },
+      {
+        item: '33',
+        indicadorCumplimiento:
+          'Las obligaciones de rendición de cuentas, las autoridades y las responsabilidades están definidas y documentadas en toda la organización y el personal comprende sus propias responsabilidades.',
+        eficacia: 'E',
+      },
+    ],
+    SLVR: [
+      {
+        item: '1',
+        indicadorCumplimiento:
+          'Existe un sistema de notificación confidencial, que captura los errores, peligros y cuasicolisiones, que es fácil de usar y accesible a todo el personal.',
+        eficacia: 'O',
+      },
+      {
+        item: '2',
+        indicadorCumplimiento:
+          'El sistema de notificación confidencial brinda retroalimentación a la persona que notifica sobre las medidas adoptadas (o no adoptadas) y, cuando sea adecuado, al resto de la organización.',
+        eficacia: 'O',
+      },
+      {
+        item: '3',
+        indicadorCumplimiento:
+          'El personal expresa su confianza en la política y en los procesos de notificación de la organización.',
+        eficacia: 'E',
+      },
+      {
+        item: '4',
+        indicadorCumplimiento:
+          'Existe un proceso que define cómo se identifica peligros de múltiples fuentes utilizando métodos reactivos y proactivos (internos y externos).',
+        eficacia: 'E',
+      },
+      {
+        item: '5',
+        indicadorCumplimiento:
+          'El proceso de identificación de peligros identifica los peligros relacionados con la actuación humana.',
+        eficacia: 'O',
+      },
+      {
+        item: '6',
+        indicadorCumplimiento:
+          'Existe un proceso para analizar los datos y la información sobre seguridad operacional para buscar tendencias y obtener información de gestión utilizable.',
+        eficacia: 'O',
+      },
+      {
+        item: '7',
+        indicadorCumplimiento:
+          'Las investigaciones sobre seguridad operacional son realizadas por personal debidamente capacitado para identificar las causas de fondo (no sólo lo que sucedió, sino por qué sucedió).',
+        eficacia: 'E',
+      },
+      {
+        item: '8',
+        indicadorCumplimiento:
+          'Existe un proceso para la gestión de riesgos que incluye el análisis y evaluación de los riesgos asociados con los peligros identificados, expresado en términos de probabilidad y gravedad (o alguna metodología alternativa).',
+        eficacia: 'O',
+      },
+      {
+        item: '9',
+        indicadorCumplimiento:
+          'Hay criterios para evaluar el nivel de riesgo que la organización está dispuesta a aceptar, y las evaluaciones y clasificaciones de riesgos están debidamente justificadas.',
+        eficacia: 'O',
+      },
+      {
+        item: '10',
+        indicadorCumplimiento:
+          'La organización cuenta con un proceso para tomar decisiones y aplicar controles de riesgo adecuados y eficaces.',
+        eficacia: 'O',
+      },
+      {
+        item: '11',
+        indicadorCumplimiento:
+          'La alta gerencia tiene visibilidad de los peligros cuyo riesgo asociado es alto o medio, así como de su mitigación y control.',
+        eficacia: 'O',
+      },
+      {
+        item: '12',
+        indicadorCumplimiento:
+          'Los indicadores de rendimiento en materia de seguridad operacional (SPI) relacionados con los objetivos de seguridad operacional de la organización han sido definidos, promulgados y son observados y analizados para buscar tendencias.',
+        eficacia: 'S',
+      },
+      {
+        item: '13',
+        indicadorCumplimiento:
+          'Los controles y mitigaciones de los riesgos se verifican/auditan para confirmar que están funcionando y son eficaces.',
+        eficacia: 'S',
+      },
+      {
+        item: '14',
+        indicadorCumplimiento:
+          'El aseguramiento de la seguridad operacional toma en cuenta las actividades llevadas a cabo por todas las organizaciones directamente contratadas.',
+        eficacia: 'S',
+      },
+      {
+        item: '15',
+        indicadorCumplimiento:
+          'Se define las responsabilidades y la obligación de rendición de cuentas para garantizar el cumplimiento de las normas de la seguridad operacional y se identifica claramente los requisitos aplicables en los manuales y procedimientos de la organización.',
+        eficacia: 'S',
+      },
+      {
+        item: '16',
+        indicadorCumplimiento:
+          'Existe un programa de auditoría interna que incluye detalles sobre el calendario de auditorías, los procedimientos para las auditorías, la notificación, el seguimiento y los registros.',
+        eficacia: 'S',
+      },
+      {
+        item: '17',
+        indicadorCumplimiento:
+          'Se define las responsabilidades del proceso de auditoría interna y existe una persona o grupo de personas con responsabilidades de auditoría interna con acceso directo al ejecutivo/ gerente responsable.',
+        eficacia: 'S',
+      },
+      {
+        item: '18',
+        indicadorCumplimiento:
+          'Después de una auditoría, se realiza un análisis apropiado de los factores causales y se toman medidas correctivas/ preventivas.',
+        eficacia: 'S',
+      },
+      {
+        item: '19',
+        indicadorCumplimiento:
+          'La organización cuenta con un proceso para identificar si los cambios tienen un impacto en la seguridad operacional, así como para gestionar los riesgos identificados de acuerdo con los procesos de gestión de riesgos de seguridad operacional existentes.',
+        eficacia: 'S',
+      },
+      {
+        item: '20',
+        indicadorCumplimiento:
+          'Las cuestiones relativas a los factores humanos (HF) se han considerado como parte del proceso de gestión del cambio y, donde corresponde, la organización ha aplicado las normas de diseño adecuadas, centradas en el factor humano, para el diseño de los equipos y el entorno físico.',
+        eficacia: 'S',
+      },
+      {
+        item: '21',
+        indicadorCumplimiento:
+          'La organización supervisa y evalúa continuamente sus procesos de SMS para mantener o mejorar continuamente la eficacia total del SMS.',
+        eficacia: 'S',
+      },
+      {
+        item: '22',
+        indicadorCumplimiento:
+          'Existe una política de seguridad operacional, firmada por el Gerente Responsable, que incluye un compromiso hacia la mejora continua; cumple con todos los requisitos y normas legales aplicables; y toma en consideración las mejores prácticas.',
+        eficacia: 'S',
+      },
+      {
+        item: '23',
+        indicadorCumplimiento:
+          'La política de seguridad operacional incluye una declaración para proporcionar los recursos adecuados, y la organización está gestionándolos con el objetivo de anticipar y subsanar cualquier deficiencia.',
+        eficacia: 'S',
+      },
+      {
+        item: '24',
+        indicadorCumplimiento:
+          'Existen políticas establecidas para las funciones críticas de seguridad operacional, relacionadas con todos los aspectos de aptitud para el trabajo (por ejemplo, la política sobre alcohol y drogas o la fatiga).',
+        eficacia: 'S',
+      },
+      {
+        item: '25',
+        indicadorCumplimiento:
+          'Existe un medio para la comunicación de la política de seguridad operacional.',
+        eficacia: 'S',
+      },
+      {
+        item: '26',
+        indicadorCumplimiento:
+          'El ejecutivo responsable y el equipo de la alta gerencia promueven una cultura positiva de seguridad operacional/justicia y demuestran su compromiso con la política de seguridad operacional, a través de la participación activa y visible en el sistema de gestión de la seguridad operacional.',
+        eficacia: 'S',
+      },
+      {
+        item: '27',
+        indicadorCumplimiento:
+          'La política sobre seguridad operacional fomenta activamente las notificaciones sobre seguridad operacional.',
+        eficacia: 'S',
+      },
+      {
+        item: '28',
+        indicadorCumplimiento:
+          'Se ha definido una política y principios de una cultura justa que identifican claramente los comportamientos aceptables e inaceptables para promover una cultura justa.',
+        eficacia: 'P',
+      },
+      {
+        item: '29',
+        indicadorCumplimiento:
+          'Se han establecido objetivos de seguridad operacional coherentes con la política de seguridad operacional y éstos son comunicados a toda la organización.',
+        eficacia: 'P',
+      },
+      {
+        item: '30',
+        indicadorCumplimiento:
+          'El programa estatal de seguridad operacional (SSP) está siendo considerado y abordado según corresponda.',
+        eficacia: 'O',
+      },
+      {
+        item: '31',
+        indicadorCumplimiento:
+          'Se ha nombrado un ejecutivo responsable con plena responsabilidad y obligación de rendición de cuentas para garantizar que el SMS se aplique correctamente y funcione con eficacia.',
+        eficacia: 'E',
+      },
+      {
+        item: '32',
+        indicadorCumplimiento:
+          'El ejecutivo/ gerente responsable es plenamente consciente de sus funciones y responsabilidades en materia del SMS con respecto a la política de seguridad operacional, los requisitos de seguridad operacional y la cultura de seguridad operacional de la organización.',
+        eficacia: 'E',
+      },
+      {
+        item: '33',
+        indicadorCumplimiento:
+          'Las obligaciones de rendición de cuentas, las autoridades y las responsabilidades están definidas y documentadas en toda la organización y el personal comprende sus propias responsabilidades.',
+        eficacia: 'E',
+      },
+    ],
+    SLGM: [
+      {
+        item: '1',
+        indicadorCumplimiento:
+          'Existe un sistema de notificación confidencial, que captura los errores, peligros y cuasicolisiones, que es fácil de usar y accesible a todo el personal.',
+        eficacia: 'P',
+      },
+      {
+        item: '2',
+        indicadorCumplimiento:
+          'El sistema de notificación confidencial brinda retroalimentación a la persona que notifica sobre las medidas adoptadas (o no adoptadas) y, cuando sea adecuado, al resto de la organización.',
+        eficacia: 'P',
+      },
+      {
+        item: '3',
+        indicadorCumplimiento:
+          'El personal expresa su confianza en la política y en los procesos de notificación de la organización.',
+        eficacia: 'P',
+      },
+      {
+        item: '4',
+        indicadorCumplimiento:
+          'Existe un proceso que define cómo se identifica peligros de múltiples fuentes utilizando métodos reactivos y proactivos (internos y externos).',
+        eficacia: 'E',
+      },
+      {
+        item: '5',
+        indicadorCumplimiento:
+          'El proceso de identificación de peligros identifica los peligros relacionados con la actuación humana.',
+        eficacia: 'P',
+      },
+      {
+        item: '6',
+        indicadorCumplimiento:
+          'Existe un proceso para analizar los datos y la información sobre seguridad operacional para buscar tendencias y obtener información de gestión utilizable.',
+        eficacia: 'P',
+      },
+      {
+        item: '7',
+        indicadorCumplimiento:
+          'Las investigaciones sobre seguridad operacional son realizadas por personal debidamente capacitado para identificar las causas de fondo (no sólo lo que sucedió, sino por qué sucedió).',
+        eficacia: 'P',
+      },
+      {
+        item: '8',
+        indicadorCumplimiento:
+          'Existe un proceso para la gestión de riesgos que incluye el análisis y evaluación de los riesgos asociados con los peligros identificados, expresado en términos de probabilidad y gravedad (o alguna metodología alternativa).',
+        eficacia: 'P',
+      },
+      {
+        item: '9',
+        indicadorCumplimiento:
+          'Hay criterios para evaluar el nivel de riesgo que la organización está dispuesta a aceptar, y las evaluaciones y clasificaciones de riesgos están debidamente justificadas.',
+        eficacia: 'P',
+      },
+      {
+        item: '10',
+        indicadorCumplimiento:
+          'La organización cuenta con un proceso para tomar decisiones y aplicar controles de riesgo adecuados y eficaces.',
+        eficacia: 'P',
+      },
+      {
+        item: '11',
+        indicadorCumplimiento:
+          'La alta gerencia tiene visibilidad de los peligros cuyo riesgo asociado es alto o medio, así como de su mitigación y control.',
+        eficacia: 'P',
+      },
+      {
+        item: '12',
+        indicadorCumplimiento:
+          'Los indicadores de rendimiento en materia de seguridad operacional (SPI) relacionados con los objetivos de seguridad operacional de la organización han sido definidos, promulgados y son observados y analizados para buscar tendencias.',
+        eficacia: 'P',
+      },
+      {
+        item: '13',
+        indicadorCumplimiento:
+          'Los controles y mitigaciones de los riesgos se verifican/auditan para confirmar que están funcionando y son eficaces.',
+        eficacia: 'P',
+      },
+      {
+        item: '14',
+        indicadorCumplimiento:
+          'El aseguramiento de la seguridad operacional toma en cuenta las actividades llevadas a cabo por todas las organizaciones directamente contratadas.',
+        eficacia: 'P',
+      },
+      {
+        item: '15',
+        indicadorCumplimiento:
+          'Se define las responsabilidades y la obligación de rendición de cuentas para garantizar el cumplimiento de las normas de la seguridad operacional y se identifica claramente los requisitos aplicables en los manuales y procedimientos de la organización.',
+        eficacia: 'P',
+      },
+      {
+        item: '16',
+        indicadorCumplimiento:
+          'Existe un programa de auditoría interna que incluye detalles sobre el calendario de auditorías, los procedimientos para las auditorías, la notificación, el seguimiento y los registros.',
+        eficacia: 'P',
+      },
+      {
+        item: '17',
+        indicadorCumplimiento:
+          'Se define las responsabilidades del proceso de auditoría interna y existe una persona o grupo de personas con responsabilidades de auditoría interna con acceso directo al ejecutivo/ gerente responsable.',
+        eficacia: 'S',
+      },
+      {
+        item: '18',
+        indicadorCumplimiento:
+          'Después de una auditoría, se realiza un análisis apropiado de los factores causales y se toman medidas correctivas/ preventivas.',
+        eficacia: 'S',
+      },
+      {
+        item: '19',
+        indicadorCumplimiento:
+          'La organización cuenta con un proceso para identificar si los cambios tienen un impacto en la seguridad operacional, así como para gestionar los riesgos identificados de acuerdo con los procesos de gestión de riesgos de seguridad operacional existentes.',
+        eficacia: 'S',
+      },
+      {
+        item: '20',
+        indicadorCumplimiento:
+          'Las cuestiones relativas a los factores humanos (HF) se han considerado como parte del proceso de gestión del cambio y, donde corresponde, la organización ha aplicado las normas de diseño adecuadas, centradas en el factor humano, para el diseño de los equipos y el entorno físico.',
+        eficacia: 'S',
+      },
+      {
+        item: '21',
+        indicadorCumplimiento:
+          'La organización supervisa y evalúa continuamente sus procesos de SMS para mantener o mejorar continuamente la eficacia total del SMS.',
+        eficacia: 'S',
+      },
+      {
+        item: '22',
+        indicadorCumplimiento:
+          'Existe una política de seguridad operacional, firmada por el Gerente Responsable, que incluye un compromiso hacia la mejora continua; cumple con todos los requisitos y normas legales aplicables; y toma en consideración las mejores prácticas.',
+        eficacia: 'S',
+      },
+      {
+        item: '23',
+        indicadorCumplimiento:
+          'La política de seguridad operacional incluye una declaración para proporcionar los recursos adecuados, y la organización está gestionándolos con el objetivo de anticipar y subsanar cualquier deficiencia.',
+        eficacia: 'S',
+      },
+      {
+        item: '24',
+        indicadorCumplimiento:
+          'Existen políticas establecidas para las funciones críticas de seguridad operacional, relacionadas con todos los aspectos de aptitud para el trabajo (por ejemplo, la política sobre alcohol y drogas o la fatiga).',
+        eficacia: 'S',
+      },
+      {
+        item: '25',
+        indicadorCumplimiento:
+          'Existe un medio para la comunicación de la política de seguridad operacional.',
+        eficacia: 'S',
+      },
+      {
+        item: '26',
+        indicadorCumplimiento:
+          'El ejecutivo responsable y el equipo de la alta gerencia promueven una cultura positiva de seguridad operacional/justicia y demuestran su compromiso con la política de seguridad operacional, a través de la participación activa y visible en el sistema de gestión de la seguridad operacional.',
+        eficacia: 'S',
+      },
+      {
+        item: '27',
+        indicadorCumplimiento:
+          'La política sobre seguridad operacional fomenta activamente las notificaciones sobre seguridad operacional.',
+        eficacia: 'S',
+      },
+      {
+        item: '28',
+        indicadorCumplimiento:
+          'Se ha definido una política y principios de una cultura justa que identifican claramente los comportamientos aceptables e inaceptables para promover una cultura justa.',
+        eficacia: 'S',
+      },
+      {
+        item: '29',
+        indicadorCumplimiento:
+          'Se han establecido objetivos de seguridad operacional coherentes con la política de seguridad operacional y éstos son comunicados a toda la organización.',
+        eficacia: 'E',
+      },
+      {
+        item: '30',
+        indicadorCumplimiento:
+          'El programa estatal de seguridad operacional (SSP) está siendo considerado y abordado según corresponda.',
+        eficacia: 'O',
+      },
+      {
+        item: '31',
+        indicadorCumplimiento:
+          'Se ha nombrado un ejecutivo responsable con plena responsabilidad y obligación de rendición de cuentas para garantizar que el SMS se aplique correctamente y funcione con eficacia.',
+        eficacia: 'O',
+      },
+      {
+        item: '32',
+        indicadorCumplimiento:
+          'El ejecutivo/ gerente responsable es plenamente consciente de sus funciones y responsabilidades en materia del SMS con respecto a la política de seguridad operacional, los requisitos de seguridad operacional y la cultura de seguridad operacional de la organización.',
+        eficacia: 'E',
+      },
+      {
+        item: '33',
+        indicadorCumplimiento:
+          'Las obligaciones de rendición de cuentas, las autoridades y las responsabilidades están definidas y documentadas en toda la organización y el personal comprende sus propias responsabilidades.',
+        eficacia: 'E',
+      },
+    ],
+  };
 
   /*aerodromos= Object.keys(this.dataPorAerodromo);
   aerodromoSeleccionado='SLLP';*/
@@ -629,6 +1245,15 @@ export class PlanificacionComponent implements OnInit {
     const codigo = this.formAerodromo.value.aerodromo;
     console.log('david apaza canaza');
     this.dataSourceLv = this.dataPorAerodromo[codigo] || [];
+    this.dataSourceSms = this.dataPorAerodromoSms[codigo] || [];
+    console.log('dataSourceLv :', this.dataSourceLv);
+    console.log('dataSourceSms : ', this.dataSourceSms);
+  }
+
+  seleccionarAerodromoSms() {
+    const codigoSms = this.formAerodromo.value.aerodromo;
+    console.log('valor codigoSms', codigoSms);
+    this.dataSourceSms = this.dataPorAerodromoSms[codigoSms] || [];
   }
 
   determinarCategoriaORP(): number | string {
