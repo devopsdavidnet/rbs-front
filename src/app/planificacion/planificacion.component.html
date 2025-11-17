@@ -498,6 +498,48 @@
                   </td>
                 </ng-container>
 
+                <!-- hallazgos -->
+                <ng-container matColumnDef="hallazgo">
+                  <th mat-header-cell *matHeaderCellDef>HALLAZGO</th>
+                  <td mat-cell *matCellDef="let row">
+                    <button
+                      mat-icon-button
+                      color="accent"
+                      (click)="verGrafico(row)"
+                    >
+                      <mat-icon>question_answer</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <!-- comentarios -->
+                <ng-container matColumnDef="comentarios">
+                  <th mat-header-cell *matHeaderCellDef>COMENTARIOS</th>
+                  <td mat-cell *matCellDef="let row">
+                    <button
+                      mat-icon-button
+                      color="accent"
+                      (click)="verGrafico(row)"
+                    >
+                      <mat-icon>description</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <!-- OBSERVACIONES -->
+                <ng-container matColumnDef="observaciones">
+                  <th mat-header-cell *matHeaderCellDef>OBSERVACIONES</th>
+                  <td mat-cell *matCellDef="let row">
+                    <button
+                      mat-icon-button
+                      color="accent"
+                      (click)="verGrafico(row)"
+                    >
+                      <mat-icon>visibility</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
                 <tr mat-header-row *matHeaderRowDef="listaSms"></tr>
                 <tr mat-row *matRowDef="let row; columns: listaSms"></tr>
               </table>

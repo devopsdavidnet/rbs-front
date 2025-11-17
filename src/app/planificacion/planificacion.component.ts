@@ -67,7 +67,14 @@ export class PlanificacionComponent implements OnInit {
     'grafico',
   ];
 
-  listaSms = ['item', 'indicadorCumplimiento', 'eficacia'];
+  listaSms = [
+    'item',
+    'indicadorCumplimiento',
+    'eficacia',
+    'hallazgo',
+    'comentarios',
+    'observaciones',
+  ];
 
   displayedColumns: string[] = [
     'nro',
