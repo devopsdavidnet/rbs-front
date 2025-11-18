@@ -9,8 +9,9 @@ export interface FilaVerificacion {
   listaVerificacion: string;
   satisfactorio: number;
   insatisfactorio: number;
+  noSatifConPacVigente: number;
   noAplica: number;
-  observado: number;
+  noObservado: number;
   totalPreguntas: number;
 }
 
@@ -33,17 +34,30 @@ export class GraficoAerodromoComponent {
   public barChartType: ChartType = 'bar';
 
   public barChartData: ChartConfiguration['data'] = {
-    labels: ['Satisfactorio', 'Insatisfactorio', 'No aplica', 'Observado'],
+    labels: [
+      'Satisfactorio',
+      'Insatisfactorio',
+      'No Satisfactorio con PAC Vigeten',
+      'No aplica',
+      'No Observado',
+    ],
     datasets: [
       {
         data: [
           this.data.satisfactorio,
           this.data.insatisfactorio,
+          this.data.noSatifConPacVigente,
           this.data.noAplica,
-          this.data.observado,
+          this.data.noObservado,
         ],
         label: 'Resultados',
-        backgroundColor: ['#4CAF50', '#F44336', '#9E9E9E', '#FF9800'],
+        backgroundColor: [
+          '#4CAF50',
+          '#F44336',
+          '#3688f4ff',
+          '#9E9E9E',
+          '#FF9800',
+        ],
       },
     ],
   };

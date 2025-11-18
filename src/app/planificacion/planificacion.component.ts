@@ -12,14 +12,16 @@ import { DetalleLvComponent } from '../detalle-lv/detalle-lv.component';
 import { GraficoAerodromoComponent } from '../components/grafico-aerodromo/grafico-aerodromo.component';
 import { DetalleNcrComponent } from '../detalle-ncr/detalle-ncr.component';
 import { GraficoNcrComponent } from '../grafico-ncr/grafico-ncr.component';
+import { DetalleNcrLvComponent } from '../detalle-ncr-lv/detalle-ncr-lv.component';
 
 export interface FilaVerificacion {
   lv: string;
   listaVerificacion: string;
   satisfactorio: number;
   insatisfactorio: number;
+  noSatifConPacVigente: number;
   noAplica: number;
-  observado: number;
+  noObservado: number;
   totalPreguntas: number;
 }
 
@@ -61,9 +63,11 @@ export class PlanificacionComponent implements OnInit {
     'listaVerificacion',
     'satisfactorio',
     'insatisfactorio',
+    'noSatifConPacVigente',
     'noAplica',
-    'observado',
+    'noObservado',
     'totalPreguntas',
+    'ncr',
     'detalle',
     'grafico',
   ];
@@ -101,18 +105,20 @@ export class PlanificacionComponent implements OnInit {
         lv: 'LV-AGA-014',
         listaVerificacion: 'INSPECCIÓN A PROCESOS DE DATOS DE AERÓDROMO',
         satisfactorio: 5,
+        noSatifConPacVigente: 5,
         insatisfactorio: 2,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 10,
       },
       {
         lv: 'LV-AGA-015',
         listaVerificacion: 'INSPECCIÓN DE CARACTERÍSTICAS FÍSICAS DE AERÓDROMO',
         satisfactorio: 15,
+        noSatifConPacVigente: 2,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
@@ -120,18 +126,20 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN AL ESTABLECIMIENTO DE RESTRICCIONES DE ALTURA',
         satisfactorio: 15,
+        noSatifConPacVigente: 1,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
         lv: 'LV-AGA-017',
         listaVerificacion: 'INSPECCIÓN DE AYUDAS VISUALES DE AERÓDROMO',
         satisfactorio: 15,
+        noSatifConPacVigente: 3,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
@@ -139,27 +147,30 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN DE AYUDAS VISUALES INDICADORAS DE OBSTÁCULO',
         satisfactorio: 15,
+        noSatifConPacVigente: 2,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
         lv: 'LV-AGA-019',
         listaVerificacion: 'INSPECCIÓN DE SISTEMAS ELÉCTRICOS DE AERÓDROMO',
         satisfactorio: 15,
+        noSatifConPacVigente: 1,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
         lv: 'LV-AGA-020',
         listaVerificacion: 'INSPECCION ADMINISTRATIVA ORGANIZACIONAL',
         satisfactorio: 15,
+        noSatifConPacVigente: 2,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
@@ -167,9 +178,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCION A PROCESOS DE NOTIFICACION DE CONDICIONES',
         satisfactorio: 15,
+        noSatifConPacVigente: 1,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
@@ -177,9 +189,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN A PROCESOS DE CONTROL DE OBSTÁCULOS Y PROT',
         satisfactorio: 15,
+        noSatifConPacVigente: 2,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
@@ -187,18 +200,20 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN A PROCESOS DE SEÑALIZACIÓN DE AREAS DE USO R',
         satisfactorio: 15,
+        noSatifConPacVigente: 3,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
         lv: 'LV-AGA-024',
         listaVerificacion: 'INSPECCIÓN A PROCESOS DE RESPUESTA A EMERGENCIAS',
         satisfactorio: 15,
+        noSatifConPacVigente: 0,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
@@ -206,9 +221,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN DE SERVICIO DE SALVAMENTO Y EXTINCIÓN DE INCE',
         satisfactorio: 15,
+        noSatifConPacVigente: 0,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
@@ -216,9 +232,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN A PROCESOS DE GESTIÓN DEL PELIGRO POR FAUNA',
         satisfactorio: 15,
+        noSatifConPacVigente: 0,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
@@ -226,9 +243,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN A PROCESOS DE GESTIÓN DE OPERACIONES EN EL',
         satisfactorio: 15,
+        noSatifConPacVigente: 0,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
@@ -236,9 +254,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN DE INSTALACIONES AUXILIARES DE AERÓDROMO',
         satisfactorio: 15,
+        noSatifConPacVigente: 0,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
@@ -246,9 +265,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN A PROCESOS DE MANTENIMIENTO DE ÁREA DE MOVI',
         satisfactorio: 15,
+        noSatifConPacVigente: 0,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
@@ -256,9 +276,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN A PROCESOS DE MANTENIMIENTO DE AYUDAS VISUA',
         satisfactorio: 15,
+        noSatifConPacVigente: 0,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
@@ -266,9 +287,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN AL SISTEMA DE GESTIÓN DE SEGURIDAD OPERACIO',
         satisfactorio: 15,
+        noSatifConPacVigente: 0,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
     ],
@@ -277,18 +299,20 @@ export class PlanificacionComponent implements OnInit {
         lv: 'LV-AGA-014',
         listaVerificacion: 'INSPECCIÓN A PROCESOS DE DATOS DE AERÓDROMO',
         satisfactorio: 2,
+        noSatifConPacVigente: 0,
         insatisfactorio: 1,
         noAplica: 2,
-        observado: 5,
+        noObservado: 5,
         totalPreguntas: 10,
       },
       {
         lv: 'LV-AGA-015',
         listaVerificacion: 'INSPECCIÓN DE CARACTERÍSTICAS FÍSICAS DE AERÓDROMO',
         satisfactorio: 2,
+        noSatifConPacVigente: 0,
         insatisfactorio: 1,
         noAplica: 10,
-        observado: 15,
+        noObservado: 15,
         totalPreguntas: 28,
       },
       {
@@ -296,18 +320,20 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN AL ESTABLECIMIENTO DE RESTRICCIONES DE ALTURA',
         satisfactorio: 1,
+        noSatifConPacVigente: 0,
         insatisfactorio: 2,
         noAplica: 10,
-        observado: 15,
+        noObservado: 15,
         totalPreguntas: 28,
       },
       {
         lv: 'LV-AGA-017',
         listaVerificacion: 'INSPECCIÓN DE AYUDAS VISUALES DE AERÓDROMO',
         satisfactorio: 3,
+        noSatifConPacVigente: 0,
         insatisfactorio: 14,
         noAplica: 10,
-        observado: 1,
+        noObservado: 1,
         totalPreguntas: 28,
       },
       {
@@ -315,27 +341,30 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN DE AYUDAS VISUALES INDICADORAS DE OBSTÁCULO',
         satisfactorio: 4,
+        noSatifConPacVigente: 0,
         insatisfactorio: 14,
         noAplica: 2,
-        observado: 8,
+        noObservado: 8,
         totalPreguntas: 28,
       },
       {
         lv: 'LV-AGA-019',
         listaVerificacion: 'INSPECCIÓN DE SISTEMAS ELÉCTRICOS DE AERÓDROMO',
         satisfactorio: 8,
+        noSatifConPacVigente: 1,
         insatisfactorio: 5,
         noAplica: 3,
-        observado: 12,
+        noObservado: 12,
         totalPreguntas: 28,
       },
       {
         lv: 'LV-AGA-020',
         listaVerificacion: 'INSPECCION ADMINISTRATIVA ORGANIZACIONAL',
         satisfactorio: 8,
+        noSatifConPacVigente: 1,
         insatisfactorio: 5,
         noAplica: 5,
-        observado: 10,
+        noObservado: 10,
         totalPreguntas: 28,
       },
       {
@@ -343,9 +372,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCION A PROCESOS DE NOTIFICACION DE CONDICIONES',
         satisfactorio: 8,
+        noSatifConPacVigente: 2,
         insatisfactorio: 2,
         noAplica: 10,
-        observado: 8,
+        noObservado: 8,
         totalPreguntas: 28,
       },
       {
@@ -353,9 +383,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN A PROCESOS DE CONTROL DE OBSTÁCULOS Y PROT',
         satisfactorio: 10,
+        noSatifConPacVigente: 0,
         insatisfactorio: 8,
         noAplica: 2,
-        observado: 8,
+        noObservado: 8,
         totalPreguntas: 28,
       },
       {
@@ -363,18 +394,20 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN A PROCESOS DE SEÑALIZACIÓN DE AREAS DE USO R',
         satisfactorio: 8,
+        noSatifConPacVigente: 1,
         insatisfactorio: 10,
         noAplica: 1,
-        observado: 9,
+        noObservado: 9,
         totalPreguntas: 28,
       },
       {
         lv: 'LV-AGA-024',
         listaVerificacion: 'INSPECCIÓN A PROCESOS DE RESPUESTA A EMERGENCIAS',
         satisfactorio: 10,
+        noSatifConPacVigente: 1,
         insatisfactorio: 3,
         noAplica: 5,
-        observado: 10,
+        noObservado: 10,
         totalPreguntas: 28,
       },
       {
@@ -382,9 +415,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN DE SERVICIO DE SALVAMENTO Y EXTINCIÓN DE INCE',
         satisfactorio: 4,
+        noSatifConPacVigente: 0,
         insatisfactorio: 4,
         noAplica: 10,
-        observado: 10,
+        noObservado: 10,
         totalPreguntas: 28,
       },
       {
@@ -392,9 +426,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN A PROCESOS DE GESTIÓN DEL PELIGRO POR FAUNA',
         satisfactorio: 10,
+        noSatifConPacVigente: 0,
         insatisfactorio: 8,
         noAplica: 2,
-        observado: 8,
+        noObservado: 8,
         totalPreguntas: 28,
       },
       {
@@ -402,9 +437,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN A PROCESOS DE GESTIÓN DE OPERACIONES EN EL',
         satisfactorio: 9,
+        noSatifConPacVigente: 1,
         insatisfactorio: 9,
         noAplica: 8,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 28,
       },
       {
@@ -412,9 +448,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN DE INSTALACIONES AUXILIARES DE AERÓDROMO',
         satisfactorio: 5,
+        noSatifConPacVigente: 2,
         insatisfactorio: 5,
         noAplica: 10,
-        observado: 8,
+        noObservado: 8,
         totalPreguntas: 28,
       },
       {
@@ -422,9 +459,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN A PROCESOS DE MANTENIMIENTO DE ÁREA DE MOVI',
         satisfactorio: 10,
+        noSatifConPacVigente: 10,
         insatisfactorio: 10,
         noAplica: 4,
-        observado: 4,
+        noObservado: 4,
         totalPreguntas: 28,
       },
       {
@@ -432,9 +470,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN A PROCESOS DE MANTENIMIENTO DE AYUDAS VISUA',
         satisfactorio: 9,
+        noSatifConPacVigente: 0,
         insatisfactorio: 1,
         noAplica: 10,
-        observado: 8,
+        noObservado: 8,
         totalPreguntas: 28,
       },
       {
@@ -442,9 +481,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCIÓN AL SISTEMA DE GESTIÓN DE SEGURIDAD OPERACIO',
         satisfactorio: 14,
+        noSatifConPacVigente: 0,
         insatisfactorio: 4,
         noAplica: 1,
-        observado: 9,
+        noObservado: 9,
         totalPreguntas: 28,
       },
     ],
@@ -454,9 +494,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'INSPECCION A CARACTERISTICAS FISICAS NO CERTIFICADO',
         satisfactorio: 27,
+        noSatifConPacVigente: 0,
         insatisfactorio: 0,
         noAplica: 0,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 27,
       },
       {
@@ -464,9 +505,10 @@ export class PlanificacionComponent implements OnInit {
         listaVerificacion:
           'VIGILANCIA DE CONDICIONES OPERACIONALES DE AERÓDROMO',
         satisfactorio: 22,
+        noSatifConPacVigente: 1,
         insatisfactorio: 6,
         noAplica: 2,
-        observado: 2,
+        noObservado: 2,
         totalPreguntas: 30,
       },
     ],
@@ -1137,8 +1179,9 @@ export class PlanificacionComponent implements OnInit {
     const dataTotales = {
       satisfactorio: this.getTotal('satisfactorio'),
       insatisfactorio: this.getTotal('insatisfactorio'),
+      noSatifConPacVigente: this.getTotal('noSatifConPacVigente'),
       noAplica: this.getTotal('noAplica'),
-      observado: this.getTotal('observado'),
+      observado: this.getTotal('noObservado'),
       totalPreguntas: this.getTotal('totalPreguntas'),
     };
 
@@ -1148,18 +1191,17 @@ export class PlanificacionComponent implements OnInit {
     });
   }
 
-  verGraficoNcr(): void {
-    const dataTotales = {
-      satisfactorio: this.getTotal('satisfactorio'),
-      insatisfactorio: this.getTotal('insatisfactorio'),
-      noAplica: this.getTotal('noAplica'),
-      observado: this.getTotal('observado'),
-      totalPreguntas: this.getTotal('totalPreguntas'),
-    };
+  verDetalleNcrLv(row: any) {
+    console.log('Detalle del registro:', row);
 
-    this.dialog.open(GraficoNcrComponent, {
-      width: '700px',
-      data: dataTotales,
+    const dialogRef = this.dialog.open(DetalleNcrLvComponent, {
+      width: '1000px',
+      data: row,
+      disableClose: true,
+
+      position: {
+        top: '100px',
+      },
     });
   }
 
@@ -1186,6 +1228,22 @@ export class PlanificacionComponent implements OnInit {
     });
 
     // Aquí puedes abrir un dialog, mostrar más información, etc.
+  }
+
+  verGraficoNcr(): void {
+    const dataTotales = {
+      satisfactorio: this.getTotal('satisfactorio'),
+      insatisfactorio: this.getTotal('insatisfactorio'),
+      noSatifConPacVigente: this.getTotal('noSatifConPacVigente'),
+      noAplica: this.getTotal('noAplica'),
+      observado: this.getTotal('noObservado'),
+      totalPreguntas: this.getTotal('totalPreguntas'),
+    };
+
+    this.dialog.open(GraficoNcrComponent, {
+      width: '700px',
+      data: dataTotales,
+    });
   }
 
   /*verGrafico(row: any) {

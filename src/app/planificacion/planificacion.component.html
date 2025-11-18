@@ -91,180 +91,64 @@
           <mat-tab label="ORP">
             <div class="tab-content">
               Contenido ORP
+              <table class="form-container">
+                <tr>
+                  <td>
+                    <form [formGroup]="formAerodromo">
+                      <mat-form-field appearance="fill" class="w-full">
+                        <mat-label>AERÓDROMO</mat-label>
+                        <mat-select
+                          formControlName="aerodromo"
+                          (selectionChange)="seleccionarAerodromo()"
+                        >
+                          <mat-option
+                            *ngFor="let aero of aerodromos"
+                            [value]="aero.codigo"
+                          >
+                            {{ aero.nombre }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </form>
+                  </td>
+                  <td>
+                    <p *ngIf="formAerodromo.value.aerodromo">
+                      Código de aeródromo seleccionado:
+                      <strong>{{ formAerodromo.value.aerodromo }}</strong>
+                    </p>
+                  </td>
+                  <td>
+                    <p *ngIf="formAerodromo.value.aerodromo">
+                      <strong
+                        >Valor del perfil de riesgo organizacional :
+                      </strong>
 
-              <mat-card>
-                <!--Desde aqui-->
-                <form [formGroup]="form">
-                  <mat-table
-                    [dataSource]="dataSource3"
-                    matSort
-                    class="responsive-table"
-                  >
-                    <ng-container matColumnDef="nro">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Nro.
-                      </mat-header-cell>
-
-                      <mat-cell
-                        *matCellDef="let row; let i = index"
-                        data-label="Nro."
+                      <button
+                        mat-icon-button
+                        color="accent"
+                        (click)="verDetalleNcr()"
+                        matTooltip="Ver Detalle del Nivel de Cumplimiento Reglamentario"
                       >
-                        {{ row.correlativo }}
-                      </mat-cell>
-                    </ng-container>
+                        <mat-icon>visibility</mat-icon>
+                      </button>
+                    </p>
+                  </td>
+                  <td>
+                    <p *ngIf="formAerodromo.value.aerodromo">
+                      <strong>Ver datos estadisticos : </strong>
 
-                    <ng-container matColumnDef="parametro">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Perfil de Riesgo de la Organización
-                      </mat-header-cell>
-                      <mat-cell
-                        *matCellDef="let row; let i = index"
-                        data-label="Perfil de Riesgo de la Organización"
+                      <button
+                        mat-icon-button
+                        color="accent"
+                        (click)="verGraficoNcr()"
+                        matTooltip=""
                       >
-                        {{ row.parametroRiesgosOrganizacion }}
-                      </mat-cell>
-                    </ng-container>
-
-                    <ng-container matColumnDef="nivel3">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Nivel 3 (menos deseable)
-                      </mat-header-cell>
-                      <mat-cell
-                        *matCellDef="let row; let i = index"
-                        data-label="Nivel 3 (menos deseable)"
-                      >
-                        {{ row.nivelTresMenosDeseableo }}
-                      </mat-cell>
-                    </ng-container>
-
-                    <ng-container matColumnDef="nivel2">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Nivel 2 (promedio)
-                      </mat-header-cell>
-                      <mat-cell
-                        *matCellDef="let row; let i = index"
-                        data-label="Nivel 2 (promedio)"
-                      >
-                        {{ row.nivelDosPromedio }}
-                      </mat-cell>
-                    </ng-container>
-
-                    <ng-container matColumnDef="nivel1">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Nivel 1 (más deseable)</mat-header-cell
-                      >
-                      <mat-cell
-                        *matCellDef="let row; let i = index"
-                        data-label="Nivel 1 (más deseable)"
-                      >
-                        {{ row.nivelUnoMasDeseable }}
-                      </mat-cell>
-                    </ng-container>
-
-                    <ng-container matColumnDef="resultadoNivel">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>
-                        Resultado Nivel
-                      </mat-header-cell>
-                      <mat-cell
-                        *matCellDef="let row; let i = index"
-                        data-label="Resultado Nivel"
-                        [formGroup]="getFormGroupById(row.id)"
-                      >
-                        <mat-form-field appearance="fill" style="width: 100px">
-                          <mat-select formControlName="resultadoNivel">
-                            <mat-option
-                              *ngFor="let nivel of niveles"
-                              [value]="nivel"
-                            >
-                              {{ nivel }}
-                            </mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </mat-cell>
-                    </ng-container>
-
-                    <mat-header-row
-                      *matHeaderRowDef="displayedColumns"
-                    ></mat-header-row>
-
-                    <mat-row
-                      *matRowDef="let row; columns: displayedColumns"
-                      [ngClass]="{
-                        'fila-destacada': row.idParamTipoPregunta !== 1
-                      }"
-                    ></mat-row>
-                  </mat-table>
-
-                  <mat-paginator
-                    [pageSize]="5"
-                    [pageSizeOptions]="[5, 10, 20]"
-                    showFirstLastButtons
-                  >
-                  </mat-paginator>
-
-                  <!--DDDDDDDDDDDDDDDDDddddd-->
-                  <div
-                    style="
-                      display: grid;
-                      grid-template-columns: 1fr 1fr;
-                      gap: 24px;
-                      margin-top: 20px;
-                      width: 100%;
-                    "
-                  >
-                    <table class="tabla-estilo">
-                      <tr style="background-color: #0b3464; color: white">
-                        <td colspan="2">
-                          <strong>RESULTADO POR NIVEL</strong>
-                        </td>
-                        <td colspan="2">
-                          <strong>RESULTADO DE LA EVALUACIÓN</strong>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Nivel 1:</td>
-                        <td>
-                          <strong>{{ nivel1Count }}</strong>
-                        </td>
-                        <td>Puntos totales:</td>
-                        <td>
-                          <strong>{{ sumaResultadoPonderado }}</strong>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Nivel 2:</td>
-                        <td>
-                          <strong>{{ nivel2Count }}</strong>
-                        </td>
-                        <td>Categoría ORP:</td>
-                        <td style="background-color: #cbe8f0">
-                          <strong>{{ determinarCategoriaORP() }}</strong>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Nivel 3:</td>
-                        <td>
-                          <strong>{{ nivel3Count }}</strong>
-                        </td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td>N/A:</td>
-                        <td>
-                          <strong>{{ nivelNA }}</strong>
-                        </td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    </table>
-                  </div>
-                  <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
-                  </div>
-                </form>
-              </mat-card>
+                        <mat-icon>bar_chart</mat-icon>
+                      </button>
+                    </p>
+                  </td>
+                </tr>
+              </table>
             </div>
           </mat-tab>
 
@@ -297,24 +181,6 @@
               <table class="form-container">
                 <tr>
                   <td>
-                    <form [formGroup]="formAerodromo">
-                      <mat-form-field appearance="fill" class="w-full">
-                        <mat-label>AERÓDROMO</mat-label>
-                        <mat-select
-                          formControlName="aerodromo"
-                          (selectionChange)="seleccionarAerodromo()"
-                        >
-                          <mat-option
-                            *ngFor="let aero of aerodromos"
-                            [value]="aero.codigo"
-                          >
-                            {{ aero.nombre }}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </form>
-                  </td>
-                  <td>
                     <p *ngIf="formAerodromo.value.aerodromo">
                       Código de aeródromo seleccionado:
                       <strong>{{ formAerodromo.value.aerodromo }}</strong>
@@ -322,7 +188,7 @@
                   </td>
                   <td>
                     <p *ngIf="formAerodromo.value.aerodromo">
-                      <strong>Valor NCR : </strong>
+                      <strong>Valor del NCR : </strong>
 
                       <button
                         mat-icon-button
@@ -380,11 +246,19 @@
                     </td>
                   </ng-container>
 
-                  <!-- Insatisfactorio -->
+                  <!-- No satisfactorio -->
                   <ng-container matColumnDef="insatisfactorio">
-                    <th mat-header-cell *matHeaderCellDef>Insatisf.</th>
+                    <th mat-header-cell *matHeaderCellDef>No satisf.</th>
                     <td mat-cell *matCellDef="let row">
                       {{ row.insatisfactorio }}
+                    </td>
+                  </ng-container>
+
+                  <!-- No satisfactorio con PAC vigente -->
+                  <ng-container matColumnDef="noSatifConPacVigente">
+                    <th mat-header-cell *matHeaderCellDef>NS/PACV.</th>
+                    <td mat-cell *matCellDef="let row">
+                      {{ row.noSatifConPacVigente }}
                     </td>
                   </ng-container>
 
@@ -395,9 +269,11 @@
                   </ng-container>
 
                   <!-- Observado -->
-                  <ng-container matColumnDef="observado">
-                    <th mat-header-cell *matHeaderCellDef>Observado</th>
-                    <td mat-cell *matCellDef="let row">{{ row.observado }}</td>
+                  <ng-container matColumnDef="noObservado">
+                    <th mat-header-cell *matHeaderCellDef>No Observado</th>
+                    <td mat-cell *matCellDef="let row">
+                      {{ row.noObservado }}
+                    </td>
                   </ng-container>
 
                   <!-- Total Preguntas -->
@@ -408,7 +284,22 @@
                     </td>
                   </ng-container>
 
-                  <!-- 🔹 Detalle -->
+                  <!-- NCR -->
+                  <ng-container matColumnDef="ncr">
+                    <th mat-header-cell *matHeaderCellDef>NCR</th>
+                    <td mat-cell *matCellDef="let row">
+                      <button
+                        mat-icon-button
+                        color="accent"
+                        (click)="verDetalleNcrLv(row)"
+                        matTooltip="Ver Detalle del Nivel de Cumplimiento Reglamentario"
+                      >
+                        <mat-icon>visibility</mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+
+                  <!-- Detalle -->
                   <ng-container matColumnDef="detalle">
                     <th mat-header-cell *matHeaderCellDef>Detalle</th>
                     <td mat-cell *matCellDef="let row">
@@ -417,7 +308,7 @@
                         color="primary"
                         (click)="verDetalle(row)"
                       >
-                        Ver detalle
+                        Ver ITEM's
                       </button>
                     </td>
                   </ng-container>
@@ -450,7 +341,7 @@
                   <div class="col">{{ getTotal("satisfactorio") }}</div>
                   <div class="col">{{ getTotal("insatisfactorio") }}</div>
                   <div class="col">{{ getTotal("noAplica") }}</div>
-                  <div class="col">{{ getTotal("observado") }}</div>
+                  <div class="col">{{ getTotal("noObservado") }}</div>
                   <div class="col">{{ getTotal("totalPreguntas") }}</div>
                   <div class="col"></div>
                   <div class="col"></div>

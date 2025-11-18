@@ -202,19 +202,21 @@ export class GraficoNcrComponent implements OnInit {
     // 1. Prepara las etiquetas y los valores
     const labels = [
       'Satisfactorio',
-      'Insatisfactorio',
+      'No Satisfactorio',
+      'No Satisfactorio con PAC vigente',
       'No Aplica',
-      'Observado',
+      'No Observado',
     ];
     const chartData = [
       this.data.satisfactorio,
       this.data.insatisfactorio,
+      this.data.noSatifConPacVigente,
       this.data.noAplica,
       this.data.observado,
     ];
 
     // 2. Define los colores (se usarán para las barras/porciones)
-    const colors = ['#4CAF50', '#F44336', '#9E9E9E', '#FF9800'];
+    const colors = ['#4CAF50', '#F44336', '#3688f4ff', '#9E9E9E', '#FF9800'];
 
     // Lógica condicional para las opciones:
     const showScales =
