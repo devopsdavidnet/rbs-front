@@ -43,6 +43,7 @@ import { GraficosLvComponent } from './graficos-lv/graficos-lv.component';
 import { GraficoAerodromoComponent } from './components/grafico-aerodromo/grafico-aerodromo.component'; // Ajusta la ruta según tu estructura
 import { NgChartsModule } from 'ng2-charts';
 import { DetalleNcrComponent } from './detalle-ncr/detalle-ncr.component';
+import { GraficoNcrComponent } from './grafico-ncr/grafico-ncr.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { DetalleNcrComponent } from './detalle-ncr/detalle-ncr.component';
     GraficosLvComponent,
     GraficoAerodromoComponent,
     DetalleNcrComponent,
+    GraficoNcrComponent,
   ],
   imports: [
     MatPaginatorModule,

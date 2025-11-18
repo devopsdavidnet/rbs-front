@@ -330,7 +330,21 @@
                         (click)="verDetalleNcr()"
                         matTooltip="Ver Detalle del Nivel de Cumplimiento Reglamentario"
                       >
-                        <mat-icon>view_list</mat-icon>
+                        <mat-icon>visibility</mat-icon>
+                      </button>
+                    </p>
+                  </td>
+                  <td>
+                    <p *ngIf="formAerodromo.value.aerodromo">
+                      <strong>Ver datos estadisticos : </strong>
+
+                      <button
+                        mat-icon-button
+                        color="accent"
+                        (click)="verGraficoNcr()"
+                        matTooltip=""
+                      >
+                        <mat-icon>bar_chart</mat-icon>
                       </button>
                     </p>
                   </td>
@@ -457,7 +471,7 @@
                   </td>
                   <td>
                     <p *ngIf="formAerodromo.value.aerodromo">
-                      <strong>Valor NCR : </strong>
+                      <strong>Valor SMS : </strong>
 
                       <button
                         mat-icon-button
@@ -465,7 +479,22 @@
                         (click)="verDetalleNcr()"
                         matTooltip="Ver Detalle del Nivel de Cumplimiento Reglamentario"
                       >
-                        <mat-icon>view_list</mat-icon>
+                        <mat-icon>visibility</mat-icon>
+                      </button>
+                    </p>
+                  </td>
+
+                  <td>
+                    <p *ngIf="formAerodromo.value.aerodromo">
+                      <strong>Ver datos estadisticos : </strong>
+
+                      <button
+                        mat-icon-button
+                        color="accent"
+                        (click)="verDetalleNcr()"
+                        matTooltip="Ver Detalle del Nivel de Cumplimiento Reglamentario"
+                      >
+                        <mat-icon>bar_chart</mat-icon>
                       </button>
                     </p>
                   </td>

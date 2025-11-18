@@ -11,6 +11,7 @@ import { AfterViewInit } from '@angular/core';
 import { DetalleLvComponent } from '../detalle-lv/detalle-lv.component';
 import { GraficoAerodromoComponent } from '../components/grafico-aerodromo/grafico-aerodromo.component';
 import { DetalleNcrComponent } from '../detalle-ncr/detalle-ncr.component';
+import { GraficoNcrComponent } from '../grafico-ncr/grafico-ncr.component';
 
 export interface FilaVerificacion {
   lv: string;
@@ -452,8 +453,8 @@ export class PlanificacionComponent implements OnInit {
         lv: 'LV-AGA-037',
         listaVerificacion:
           'INSPECCION A CARACTERISTICAS FISICAS NO CERTIFICADO',
-        satisfactorio: 20,
-        insatisfactorio: 5,
+        satisfactorio: 27,
+        insatisfactorio: 0,
         noAplica: 0,
         observado: 2,
         totalPreguntas: 27,
@@ -1142,7 +1143,22 @@ export class PlanificacionComponent implements OnInit {
     };
 
     this.dialog.open(DetalleNcrComponent, {
-      width: '450px',
+      width: '700px',
+      data: dataTotales,
+    });
+  }
+
+  verGraficoNcr(): void {
+    const dataTotales = {
+      satisfactorio: this.getTotal('satisfactorio'),
+      insatisfactorio: this.getTotal('insatisfactorio'),
+      noAplica: this.getTotal('noAplica'),
+      observado: this.getTotal('observado'),
+      totalPreguntas: this.getTotal('totalPreguntas'),
+    };
+
+    this.dialog.open(GraficoNcrComponent, {
+      width: '700px',
       data: dataTotales,
     });
   }

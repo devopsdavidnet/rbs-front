@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>
+  Grafico del Nivel de Cumplimiento Reglamentario del Aeródromo
+</h2>
+
+<mat-dialog-content>
+  <div style="margin-bottom: 20px">
+    <mat-form-field appearance="fill">
+      <mat-label>Seleccionar Tipo</mat-label>
+      <select
+        matNativeControl
+        [(ngModel)]="selectedChartType"
+        (ngModelChange)="changeChartType(selectedChartType)"
+      >
+        <option *ngFor="let type of chartTypes" [value]="type.value">
+          {{ type.label }}
+        </option>
+      </select>
+    </mat-form-field>
+  </div>
+
+  <div style="width: 420px; margin: auto">
+    <canvas id="MyChart"></canvas>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>
