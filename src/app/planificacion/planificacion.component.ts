@@ -69,7 +69,6 @@ export class PlanificacionComponent implements OnInit {
 
   dataSourceLv: FilaVerificacion[] = [];
   dataSourceSms: FilaVerificacionSms[] = [];
-  dataSourceItems: FilaVerifcacionItem[] = [];
 
   listaVerificacion = [
     'lv',
@@ -122,92 +121,6 @@ codigo: string;
   accion: string;
 */
   // 🔹 Datos simulados (podrían venir del backend)
-  dataPorItem: Record<string, FilaVerifcacionItem[]> = {
-    SLLP: [
-      {
-        codigo: 'AGA - CAF -160',
-        referencia: 'RAB 137 137.125',
-        preguntaReglamento:
-          '¿El operador de aeródromo notifica la resistencia de pavimentos de pista, calles de rodaje y plataforma?',
-        constatacion:
-          'No se notifica el PCR para los pavimentos (pista, calles de rodaje y plataforma).',
-        estadoCumplimiento: 'SATISFACTORIO',
-        taxonomia: 'TECH-TDA-02',
-        indiceRiesgo: '2D',
-        categoria: 'III',
-        accion: 'NO DELIBERADO SISTEMÁTICO',
-      },
-      {
-        codigo: 'AGA - CAF -160',
-        referencia: 'RAB 137 137.125',
-        preguntaReglamento:
-          '¿El operador de aeródromo notifica la resistencia de pavimentos de pista, calles de rodaje y plataforma?',
-        constatacion:
-          'No se notifica el PCR para los pavimentos (pista, calles de rodaje y plataforma).',
-        estadoCumplimiento: 'SATISFACTORIO',
-        taxonomia: 'TECH-TDA-02',
-        indiceRiesgo: '2D',
-        categoria: 'III',
-        accion: 'NO DELIBERADO SISTEMÁTICO',
-      },
-    ],
-    SLVR: [
-      {
-        codigo: 'AGA - CAF -160',
-        referencia: 'RAB 137 137.125',
-        preguntaReglamento:
-          '¿El operador de aeródromo notifica la resistencia de pavimentos de pista, calles de rodaje y plataforma?',
-        constatacion:
-          'No se notifica el PCR para los pavimentos (pista, calles de rodaje y plataforma).',
-        estadoCumplimiento: 'SATISFACTORIO',
-        taxonomia: 'TECH-TDA-02',
-        indiceRiesgo: '2D',
-        categoria: 'III',
-        accion: 'NO DELIBERADO SISTEMÁTICO',
-      },
-      {
-        codigo: 'AGA - COP -363',
-        referencia: 'RAB 137 137.125',
-        preguntaReglamento:
-          '¿El operador de aeródromo realiza un control de potenciales obstáculos?',
-        constatacion:
-          'El plano OLS no contempla las áreas de expansión del Plan Maestro referidas a las ampliaciones de pista hacia el umbral 31.',
-        estadoCumplimiento: 'SATISFACTORIO',
-        taxonomia: 'TECH-TDA-02',
-        indiceRiesgo: '2D',
-        categoria: 'III',
-        accion: 'NO DELIBERADO SISTEMÁTICO',
-      },
-    ],
-    SLGM: [
-      {
-        codigo: 'AGA - CAF -160',
-        referencia: 'RAB 137 137.125',
-        preguntaReglamento:
-          '¿El operador de aeródromo notifica la resistencia de pavimentos de pista, calles de rodaje y plataforma?',
-        constatacion:
-          'No se notifica el PCR para los pavimentos (pista, calles de rodaje y plataforma).',
-        estadoCumplimiento: 'SATISFACTORIO',
-        taxonomia: 'TECH-TDA-02',
-        indiceRiesgo: '2D',
-        categoria: 'III',
-        accion: 'NO DELIBERADO SISTEMÁTICO',
-      },
-      {
-        codigo: 'AGA - CAF -160',
-        referencia: 'RAB 137 137.125',
-        preguntaReglamento:
-          '¿El operador de aeródromo notifica la resistencia de pavimentos de pista, calles de rodaje y plataforma?',
-        constatacion:
-          'No se notifica el PCR para los pavimentos (pista, calles de rodaje y plataforma).',
-        estadoCumplimiento: 'SATISFACTORIO',
-        taxonomia: 'TECH-TDA-02',
-        indiceRiesgo: '2D',
-        categoria: 'III',
-        accion: 'NO DELIBERADO SISTEMÁTICO',
-      },
-    ],
-  };
 
   // 🔹 Datos simulados (podrían venir del backend)
   dataPorAerodromo: Record<string, FilaVerificacion[]> = {

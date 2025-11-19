@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { FilaVerificacion } from '../planificacion/planificacion.component';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { DetalleNcrComponent } from '../detalle-ncr/detalle-ncr.component';
 
 export interface FilaVerifcacionItem {
   codigo: string;
@@ -21,11 +22,18 @@ export interface FilaVerifcacionItem {
   styleUrls: ['./detalle-lv.component.css'],
 })
 export class DetalleLvComponent {
+  constructor(
+    public dialogRef: MatDialogRef<DetalleNcrComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    //this.resultadoNcr = this.calcularResultadoNcr(data);
+  }
+
   // Columnas que se mostrarán y su orden
   dataSourceItems: FilaVerifcacionItem[] = [];
 
   dataPorItem: Record<string, FilaVerifcacionItem[]> = {
-    SLLP: [
+    LVAGA014: [
       {
         codigo: 'AGA - CAF -160',
         referencia: 'RAB 137 137.125',
@@ -53,7 +61,7 @@ export class DetalleLvComponent {
         accion: 'NO DELIBERADO SISTEMÁTICO',
       },
     ],
-    SLVR: [
+    LVAGA015: [
       {
         codigo: 'AGA - CAF -160',
         referencia: 'RAB 137 137.125',
@@ -81,7 +89,7 @@ export class DetalleLvComponent {
         accion: 'NO DELIBERADO SISTEMÁTICO',
       },
     ],
-    SLGM: [
+    LVAGA016: [
       {
         codigo: 'AGA - CAF -160',
         referencia: 'RAB 137 137.125',
