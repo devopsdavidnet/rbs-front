@@ -25,7 +25,8 @@ export class DetalleNcrComponent {
   }
 
   calcularResultadoNcr(data: any): number {
-    const total = data.satisfactorio + data.insatisfactorio;
+    const total =
+      data.satisfactorio + data.insatisfactorio + data.noSatisfConPacVigente;
 
     if (total === 0) return 0;
 

@@ -3,108 +3,111 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FilaVerificacion } from '../planificacion/planificacion.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-// --- 1. Definición de la Interfaz ---
-export interface AuditoriaAerodromo {
+export interface FilaVerifcacionItem {
   codigo: string;
   referencia: string;
   preguntaReglamento: string;
-  orientacionEvaluacion: string;
-  estadoCumplimiento:
-    | 'Satisfactorio'
-    | 'Insatisfactorio'
-    | 'No aplica'
-    | 'No observado'
-    | 'Seleccione cumplimiento';
+  constatacion: string;
+  estadoCumplimiento: string;
   taxonomia: string;
   indiceRiesgo: string;
   categoria: string;
   accion: string;
 }
 
-// --- 2. Definición de los Datos Constantes ---
-export const DATOS_AERODROMO: AuditoriaAerodromo[] = [
-  {
-    codigo: 'AGA - CAF - 160',
-    referencia: 'RAB 137.101',
-    preguntaReglamento:
-      '¿El operador de aeródromo proporciona los datos sobre el aeródromo de acuerdo a los requisitos establecidos?',
-    orientacionEvaluacion:
-      'Verificar que el operador tiene establecido un proceso para la determinación y notificación de datos de aeródromo. Verificar que el procedimiento prevé que la determinación y notificación se efectúen conforme a la clasificación de aptitud e integridad que se requiera.  ',
-    estadoCumplimiento: 'Satisfactorio',
-    taxonomia: 'TECH-TDA-02',
-    indiceRiesgo: '',
-    categoria: 'V',
-    accion: 'NO DELIBERADO SISTEMÁTICO',
-  },
-  {
-    codigo: 'AGA - CAF - 363',
-    referencia: 'RAB 137.105',
-    preguntaReglamento:
-      '¿El aeródromo notifica el  punto de referencia del aeródromo?',
-    orientacionEvaluacion:
-      'Verificar que: Se ha establecido un ARP. El operador de aeródromo ha determinado la ubicación del ARP y lo ha notificado al AIS, en grados, minutos y segundos.',
-    estadoCumplimiento: 'Insatisfactorio',
-    taxonomia: 'ORG-OMN-09',
-    indiceRiesgo: '5D',
-    categoria: 'III',
-    accion: 'NO DEBILERADO SISTEMÁTICO',
-  },
-  {
-    codigo: 'AGA - COP - 545',
-    referencia: 'RAB 137.105',
-    preguntaReglamento:
-      '¿El aeródromo notifica las elevaciones del aeródromo y de la pista?',
-    orientacionEvaluacion:
-      'Examinar pruebas documentales de que el operador de aeródromo ha determinado y notificado al AIS: La elevación del aeródromo. La elevación de cada extremo de pista... (continuación)',
-    estadoCumplimiento: 'Satisfactorio',
-    taxonomia: 'TECH-TRA-03',
-    indiceRiesgo: '',
-    categoria: 'III',
-    accion: 'NO DELIBERADO SISTEMÁTICO',
-  },
-];
-
 @Component({
   selector: 'app-detalle-lv',
   templateUrl: './detalle-lv.component.html',
   styleUrls: ['./detalle-lv.component.css'],
 })
-export class DetalleLvComponent implements OnInit {
+export class DetalleLvComponent {
   // Columnas que se mostrarán y su orden
-  displayedColumns: string[] = [
-    'codigo',
-    'referencia',
-    'preguntaReglamento',
-    'orientacionEvaluacion',
-    'estadoCumplimiento',
-    'taxonomia',
-    'indiceRiesgo',
-    'categoria',
-    'accion',
-  ];
+  dataSourceItems: FilaVerifcacionItem[] = [];
 
-  // Fuente de datos para la MatTable
-  dataSource = new MatTableDataSource<AuditoriaAerodromo>(DATOS_AERODROMO);
-
-  // Opciones del select para el estado de cumplimiento
-  opcionesCumplimiento = [
-    'Satisfactorio',
-    'Insatisfactorio',
-    'No aplica',
-    'No observado',
-  ];
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: FilaVerificacion) {
-    console.log('DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD :', data);
-  }
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
-
-  // Método para manejar el cambio en el select (opcional)
-  onEstadoChange(element: AuditoriaAerodromo, nuevoEstado: string): void {
-    console.log(`Fila ${element.referencia} cambió a: ${nuevoEstado}`);
-    // Aquí puedes implementar la lógica para actualizar el dato
-    element.estadoCumplimiento = nuevoEstado as any;
-  }
+  dataPorItem: Record<string, FilaVerifcacionItem[]> = {
+    SLLP: [
+      {
+        codigo: 'AGA - CAF -160',
+        referencia: 'RAB 137 137.125',
+        preguntaReglamento:
+          '¿El operador de aeródromo notifica la resistencia de pavimentos de pista, calles de rodaje y plataforma?',
+        constatacion:
+          'No se notifica el PCR para los pavimentos (pista, calles de rodaje y plataforma).',
+        estadoCumplimiento: 'SATISFACTORIO',
+        taxonomia: 'TECH-TDA-02',
+        indiceRiesgo: '2D',
+        categoria: 'III',
+        accion: 'NO DELIBERADO SISTEMÁTICO',
+      },
+      {
+        codigo: 'AGA - CAF -160',
+        referencia: 'RAB 137 137.125',
+        preguntaReglamento:
+          '¿El operador de aeródromo notifica la resistencia de pavimentos de pista, calles de rodaje y plataforma?',
+        constatacion:
+          'No se notifica el PCR para los pavimentos (pista, calles de rodaje y plataforma).',
+        estadoCumplimiento: 'SATISFACTORIO',
+        taxonomia: 'TECH-TDA-02',
+        indiceRiesgo: '2D',
+        categoria: 'III',
+        accion: 'NO DELIBERADO SISTEMÁTICO',
+      },
+    ],
+    SLVR: [
+      {
+        codigo: 'AGA - CAF -160',
+        referencia: 'RAB 137 137.125',
+        preguntaReglamento:
+          '¿El operador de aeródromo notifica la resistencia de pavimentos de pista, calles de rodaje y plataforma?',
+        constatacion:
+          'No se notifica el PCR para los pavimentos (pista, calles de rodaje y plataforma).',
+        estadoCumplimiento: 'SATISFACTORIO',
+        taxonomia: 'TECH-TDA-02',
+        indiceRiesgo: '2D',
+        categoria: 'III',
+        accion: 'NO DELIBERADO SISTEMÁTICO',
+      },
+      {
+        codigo: 'AGA - COP -363',
+        referencia: 'RAB 137 137.125',
+        preguntaReglamento:
+          '¿El operador de aeródromo realiza un control de potenciales obstáculos?',
+        constatacion:
+          'El plano OLS no contempla las áreas de expansión del Plan Maestro referidas a las ampliaciones de pista hacia el umbral 31.',
+        estadoCumplimiento: 'SATISFACTORIO',
+        taxonomia: 'TECH-TDA-02',
+        indiceRiesgo: '2D',
+        categoria: 'III',
+        accion: 'NO DELIBERADO SISTEMÁTICO',
+      },
+    ],
+    SLGM: [
+      {
+        codigo: 'AGA - CAF -160',
+        referencia: 'RAB 137 137.125',
+        preguntaReglamento:
+          '¿El operador de aeródromo notifica la resistencia de pavimentos de pista, calles de rodaje y plataforma?',
+        constatacion:
+          'No se notifica el PCR para los pavimentos (pista, calles de rodaje y plataforma).',
+        estadoCumplimiento: 'SATISFACTORIO',
+        taxonomia: 'TECH-TDA-02',
+        indiceRiesgo: '2D',
+        categoria: 'III',
+        accion: 'NO DELIBERADO SISTEMÁTICO',
+      },
+      {
+        codigo: 'AGA - CAF -160',
+        referencia: 'RAB 137 137.125',
+        preguntaReglamento:
+          '¿El operador de aeródromo notifica la resistencia de pavimentos de pista, calles de rodaje y plataforma?',
+        constatacion:
+          'No se notifica el PCR para los pavimentos (pista, calles de rodaje y plataforma).',
+        estadoCumplimiento: 'SATISFACTORIO',
+        taxonomia: 'TECH-TDA-02',
+        indiceRiesgo: '2D',
+        categoria: 'III',
+        accion: 'NO DELIBERADO SISTEMÁTICO',
+      },
+    ],
+  };
 }

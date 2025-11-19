@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FilaVerificacion } from '../planificacion/planificacion.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -9,10 +9,13 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class DetalleNcrLvComponent {
   resultadoNcrLv!: number;
-  /*constructor(@Inject(MAT_DIALOG_DATA) public data: FilaVerificacion) {
-    this.resultadoNcrLv = this.calcularResultadoNcrLv(data);
-  }*/
+  displayedColumns: string[] = ['cumplimiento', 'valor'];
 
+  dataNcr = [
+    { cumplimiento: '0-60', valor: 2, resaltar: false },
+    { cumplimiento: '60-80', valor: 1, resaltar: false },
+    { cumplimiento: '80-100', valor: 0, resaltar: false },
+  ];
   constructor(
     public dialogRef: MatDialogRef<DetalleNcrLvComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -29,5 +32,24 @@ export class DetalleNcrLvComponent {
     const resultado = (data.satisfactorio / total) * 100;
 
     return Number(resultado.toFixed(5)); // 🔹 redondeado a 5 decimales
+  }
+
+  ngOnInit() {
+    const resultado = this.resultadoNcrLv;
+
+    this.dataNcr.forEach((item) => {
+      item.resaltar = false;
+    });
+    console.log('resultado', resultado);
+    /*if (resultado >= 0 && resultado <= 60) this.dataNcr[0].resaltar = true;
+    if (resultado >= 61 && resultado <= 80) this.dataNcr[1].resaltar = true;
+    if (resultado >= 81 && resultado <= 100) this.dataNcr[2].resaltar = true;*/
+    if (resultado >= 0 && resultado <= 60) {
+      this.dataNcr[0].resaltar = true; // Valor NCR 2
+    } else if (resultado > 60 && resultado <= 80) {
+      this.dataNcr[1].resaltar = true; // Valor NCR 1
+    } else if (resultado > 80 && resultado <= 100) {
+      this.dataNcr[2].resaltar = true; // Valor NCR 0
+    }
   }
 }

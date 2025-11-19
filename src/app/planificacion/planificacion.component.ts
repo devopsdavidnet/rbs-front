@@ -25,6 +25,18 @@ export interface FilaVerificacion {
   totalPreguntas: number;
 }
 
+export interface FilaVerifcacionItem {
+  codigo: string;
+  referencia: string;
+  preguntaReglamento: string;
+  constatacion: string;
+  estadoCumplimiento: string;
+  taxonomia: string;
+  indiceRiesgo: string;
+  categoria: string;
+  accion: string;
+}
+
 export interface FilaVerificacionSms {
   item: string;
   indicadorCumplimiento: string;
@@ -57,6 +69,7 @@ export class PlanificacionComponent implements OnInit {
 
   dataSourceLv: FilaVerificacion[] = [];
   dataSourceSms: FilaVerificacionSms[] = [];
+  dataSourceItems: FilaVerifcacionItem[] = [];
 
   listaVerificacion = [
     'lv',
@@ -97,6 +110,104 @@ export class PlanificacionComponent implements OnInit {
     'estado',
     'acciones',
   ];
+  /*
+codigo: string;
+  referencia: string;
+  preguntaReglamento: string;
+  constatacion: string;
+  estadoCumplimiento: string;
+  taxonomia: string;
+  indiceRiesgo: string;
+  categoria: string;
+  accion: string;
+*/
+  // 🔹 Datos simulados (podrían venir del backend)
+  dataPorItem: Record<string, FilaVerifcacionItem[]> = {
+    SLLP: [
+      {
+        codigo: 'AGA - CAF -160',
+        referencia: 'RAB 137 137.125',
+        preguntaReglamento:
+          '¿El operador de aeródromo notifica la resistencia de pavimentos de pista, calles de rodaje y plataforma?',
+        constatacion:
+          'No se notifica el PCR para los pavimentos (pista, calles de rodaje y plataforma).',
+        estadoCumplimiento: 'SATISFACTORIO',
+        taxonomia: 'TECH-TDA-02',
+        indiceRiesgo: '2D',
+        categoria: 'III',
+        accion: 'NO DELIBERADO SISTEMÁTICO',
+      },
+      {
+        codigo: 'AGA - CAF -160',
+        referencia: 'RAB 137 137.125',
+        preguntaReglamento:
+          '¿El operador de aeródromo notifica la resistencia de pavimentos de pista, calles de rodaje y plataforma?',
+        constatacion:
+          'No se notifica el PCR para los pavimentos (pista, calles de rodaje y plataforma).',
+        estadoCumplimiento: 'SATISFACTORIO',
+        taxonomia: 'TECH-TDA-02',
+        indiceRiesgo: '2D',
+        categoria: 'III',
+        accion: 'NO DELIBERADO SISTEMÁTICO',
+      },
+    ],
+    SLVR: [
+      {
+        codigo: 'AGA - CAF -160',
+        referencia: 'RAB 137 137.125',
+        preguntaReglamento:
+          '¿El operador de aeródromo notifica la resistencia de pavimentos de pista, calles de rodaje y plataforma?',
+        constatacion:
+          'No se notifica el PCR para los pavimentos (pista, calles de rodaje y plataforma).',
+        estadoCumplimiento: 'SATISFACTORIO',
+        taxonomia: 'TECH-TDA-02',
+        indiceRiesgo: '2D',
+        categoria: 'III',
+        accion: 'NO DELIBERADO SISTEMÁTICO',
+      },
+      {
+        codigo: 'AGA - COP -363',
+        referencia: 'RAB 137 137.125',
+        preguntaReglamento:
+          '¿El operador de aeródromo realiza un control de potenciales obstáculos?',
+        constatacion:
+          'El plano OLS no contempla las áreas de expansión del Plan Maestro referidas a las ampliaciones de pista hacia el umbral 31.',
+        estadoCumplimiento: 'SATISFACTORIO',
+        taxonomia: 'TECH-TDA-02',
+        indiceRiesgo: '2D',
+        categoria: 'III',
+        accion: 'NO DELIBERADO SISTEMÁTICO',
+      },
+    ],
+    SLGM: [
+      {
+        codigo: 'AGA - CAF -160',
+        referencia: 'RAB 137 137.125',
+        preguntaReglamento:
+          '¿El operador de aeródromo notifica la resistencia de pavimentos de pista, calles de rodaje y plataforma?',
+        constatacion:
+          'No se notifica el PCR para los pavimentos (pista, calles de rodaje y plataforma).',
+        estadoCumplimiento: 'SATISFACTORIO',
+        taxonomia: 'TECH-TDA-02',
+        indiceRiesgo: '2D',
+        categoria: 'III',
+        accion: 'NO DELIBERADO SISTEMÁTICO',
+      },
+      {
+        codigo: 'AGA - CAF -160',
+        referencia: 'RAB 137 137.125',
+        preguntaReglamento:
+          '¿El operador de aeródromo notifica la resistencia de pavimentos de pista, calles de rodaje y plataforma?',
+        constatacion:
+          'No se notifica el PCR para los pavimentos (pista, calles de rodaje y plataforma).',
+        estadoCumplimiento: 'SATISFACTORIO',
+        taxonomia: 'TECH-TDA-02',
+        indiceRiesgo: '2D',
+        categoria: 'III',
+        accion: 'NO DELIBERADO SISTEMÁTICO',
+      },
+    ],
+  };
 
   // 🔹 Datos simulados (podrían venir del backend)
   dataPorAerodromo: Record<string, FilaVerificacion[]> = {
@@ -1179,10 +1290,15 @@ export class PlanificacionComponent implements OnInit {
     const dataTotales = {
       satisfactorio: this.getTotal('satisfactorio'),
       insatisfactorio: this.getTotal('insatisfactorio'),
-      noSatifConPacVigente: this.getTotal('noSatifConPacVigente'),
+      noSatisfConPacVigente: this.getTotal('noSatifConPacVigente'),
       noAplica: this.getTotal('noAplica'),
-      observado: this.getTotal('noObservado'),
-      totalPreguntas: this.getTotal('totalPreguntas'),
+      noObservado: this.getTotal('noObservado'),
+      totalPreguntas:
+        this.getTotal('satisfactorio') +
+        this.getTotal('insatisfactorio') +
+        this.getTotal('noSatifConPacVigente') +
+        this.getTotal('noAplica') +
+        this.getTotal('noObservado'),
     };
 
     this.dialog.open(DetalleNcrComponent, {
@@ -1195,18 +1311,20 @@ export class PlanificacionComponent implements OnInit {
     console.log('Detalle del registro:', row);
 
     const dialogRef = this.dialog.open(DetalleNcrLvComponent, {
-      width: '1000px',
+      width: '35%',
       data: row,
       disableClose: true,
 
       position: {
-        top: '100px',
+        top: '320px',
       },
     });
   }
 
-  verDetalle(row: any) {
+  verDetalleItem(row: any) {
     console.log('Detalle del registro:', row);
+    //formAerodromo
+    console.log('**DDDDDDDDDDDDDDD**', this.formAerodromo.value);
 
     /*const dialogRef = this.dialog.open(RegistroAeronavesComponent, {
       width: '1000px',
