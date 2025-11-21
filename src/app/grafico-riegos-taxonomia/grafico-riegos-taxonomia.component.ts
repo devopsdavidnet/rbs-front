@@ -1,8 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { FilaVerificacion } from '../planificacion/planificacion.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-
+import { Chart } from 'chart.js/auto';
+import { DetalleLvComponent } from '../detalle-lv/detalle-lv.component';
 export interface FilaVerificacionItem {
   codigo: string;
   referencia: string;
@@ -14,51 +13,17 @@ export interface FilaVerificacionItem {
   categoria: string;
   accion: string;
 }
-
 @Component({
-  selector: 'app-detalle-lv',
-  templateUrl: './detalle-lv.component.html',
-  styleUrls: ['./detalle-lv.component.css'],
+  selector: 'app-grafico-riegos-taxonomia',
+  templateUrl: './grafico-riegos-taxonomia.component.html',
+  styleUrls: ['./grafico-riegos-taxonomia.component.css'],
 })
-export class DetalleLvComponent implements OnInit {
-  displayedColumns: string[] = [
-    'codigo',
-    'referencia',
-    'preguntaReglamento',
-    'constatacion',
-    'estadoCumplimiento',
-    'taxonomia',
-    'indiceRiesgo',
-    'categoria',
-    'accion',
-  ];
-
-  constructor(
-    public dialogRef: MatDialogRef<DetalleLvComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { item: any; aerodromo: any }
-  ) {}
-
-  ngOnInit(): void {
-    let codigoCompleto: string =
-      this.data.aerodromo + this.sinGuion(this.data.item.lv);
-    console.log('****dato que llego****:', this.sinGuion(this.data.aerodromo));
-    console.log('****dato que llego****:', codigoCompleto);
-    if (this.data && this.dataPorItem[codigoCompleto]) {
-      this.dataSourceItems = this.dataPorItem[codigoCompleto];
-    } else {
-      this.dataSourceItems = [];
-    }
-  }
-
-  sinGuion(valor: string): string {
-    return valor.replace(/-/g, '');
-  }
-
-  // Columnas que se mostrarán y su orden
-  dataSourceItems: FilaVerificacionItem[] = [];
+export class GraficoRiegosTaxonomiaComponent {
+  elementos: FilaVerificacionItem[] = [];
 
   dataPorItem: Record<string, FilaVerificacionItem[]> = {
-    SLLPLVAGA014: [
+    //LVAGA014 se tiene que llamar por aeródromo
+    SLLP: [
       {
         codigo: 'AGA - CAF -160',
         referencia: 'RAB 137 137.125',
@@ -111,8 +76,7 @@ export class DetalleLvComponent implements OnInit {
         categoria: 'III',
         accion: 'NO DELIBERADO SISTEMÁTICO',
       },
-    ],
-    SLLPLVAGA015: [
+
       {
         codigo: 'AGA - CAF -191',
         referencia: 'RAB 137 137.125',
@@ -139,8 +103,6 @@ export class DetalleLvComponent implements OnInit {
         categoria: 'III',
         accion: 'NO DELIBERADO SISTEMÁTICO',
       },
-    ],
-    SLLPLVAGA016: [
       {
         codigo: 'AGA - CAF -260',
         referencia: 'RAB 137 137.125',
@@ -168,7 +130,7 @@ export class DetalleLvComponent implements OnInit {
         accion: 'NO DELIBERADO SISTEMÁTICO',
       },
     ],
-    SLVRLVAGA014: [
+    SLVR: [
       {
         codigo: 'AGA - CAF -260',
         referencia: 'RAB 138 137.125',
@@ -208,8 +170,6 @@ export class DetalleLvComponent implements OnInit {
         categoria: 'III',
         accion: 'NO DELIBERADO SISTEMÁTICO',
       },
-    ],
-    SLVRLVAGA015: [
       {
         codigo: 'AGA - CAF -260',
         referencia: 'RAB 138 137.125',
@@ -238,4 +198,89 @@ export class DetalleLvComponent implements OnInit {
       },
     ],
   };
+
+  //  constructor(@Inject(MAT_DIALOG_DATA) public data: { codigo: string }) {}
+
+  constructor(
+    public dialogRef: MatDialogRef<DetalleLvComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { codigo: string }
+  ) {}
+
+  ngOnInit() {
+    const codigo = this.data.codigo.trim().toUpperCase();
+    this.elementos = this.dataPorItem[codigo] ?? [];
+
+    this.graficoTaxonomia();
+    this.graficoIndiceRiesgo();
+  }
+
+  graficoTaxonomia() {
+    const totales: Record<string, number> = {};
+
+    this.elementos.forEach((item) => {
+      totales[item.taxonomia] = (totales[item.taxonomia] || 0) + 1;
+    });
+
+    /*new Chart('chartTaxonomia', {
+      type: 'bar',
+      data: {
+        labels: Object.keys(totales),
+        datasets: [
+          {
+            label: 'Frecuencia por Taxonomía',
+            data: Object.values(totales),
+            backgroundColor: ['#eb1919ff', '#ff9800', '#f5f374ff', '#1976d2'],
+
+            //backgroundColor: ['red', 'blue', 'green'],
+            //borderColor: 'black',
+          },
+        ],
+      },
+    });*/
+
+    new Chart('chartTaxonomia', {
+      type: 'bar',
+      data: {
+        labels: Object.keys(totales),
+        datasets: [
+          {
+            label: 'Frecuencia por Taxonomía',
+            data: Object.values(totales),
+            backgroundColor: ['#eb1919ff', '#ff9800', '#f5f374ff', '#1976d2'],
+          },
+        ],
+      },
+      options: {
+        indexAxis: 'y', // ← ←  HORIZONTAL
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+        },
+      },
+    });
+  }
+
+  graficoIndiceRiesgo() {
+    const totales: Record<string, number> = {};
+
+    this.elementos.forEach((item) => {
+      totales[item.indiceRiesgo] = (totales[item.indiceRiesgo] || 0) + 1;
+    });
+
+    new Chart('chartIndice', {
+      type: 'pie',
+      data: {
+        labels: Object.keys(totales),
+        datasets: [
+          {
+            label: 'Índice de Riesgo',
+            data: Object.values(totales),
+            backgroundColor: ['#eb1919ff', '#ff9800', '#f5f374ff', '#1976d2'],
+          },
+        ],
+      },
+    });
+  }
 }

@@ -45,6 +45,9 @@ import { NgChartsModule } from 'ng2-charts';
 import { DetalleNcrComponent } from './detalle-ncr/detalle-ncr.component';
 import { GraficoNcrComponent } from './grafico-ncr/grafico-ncr.component';
 import { DetalleNcrLvComponent } from './detalle-ncr-lv/detalle-ncr-lv.component';
+import { GraficoRiegosTaxonomiaComponent } from './grafico-riegos-taxonomia/grafico-riegos-taxonomia.component';
+import { ValorSmsComponent } from './valor-sms/valor-sms.component';
+import { GraficoSmsComponent } from './grafico-sms/grafico-sms.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +62,9 @@ import { DetalleNcrLvComponent } from './detalle-ncr-lv/detalle-ncr-lv.component
     DetalleNcrComponent,
     GraficoNcrComponent,
     DetalleNcrLvComponent,
+    GraficoRiegosTaxonomiaComponent,
+    ValorSmsComponent,
+    GraficoSmsComponent,
   ],
   imports: [
     MatPaginatorModule,

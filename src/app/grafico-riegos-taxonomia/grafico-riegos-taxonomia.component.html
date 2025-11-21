@@ -1,0 +1,15 @@
+<h2>
+  <strong>Gáficos según Aeródromo: {{ data.codigo }}</strong>
+</h2>
+<mat-dialog-content class="scroll-content">
+  <h3><strong>TAXONOMÍA</strong></h3>
+  <canvas id="chartTaxonomia"></canvas>
+
+  <h3><strong>ÍNDICE DE RIESGO</strong></h3>
+  <canvas id="chartIndice"></canvas>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="dialogRef.close()">
+    Cerrar
+  </button>
+</mat-dialog-actions>

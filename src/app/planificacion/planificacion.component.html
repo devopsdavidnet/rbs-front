@@ -194,7 +194,7 @@
                         mat-icon-button
                         color="accent"
                         (click)="verDetalleNcr()"
-                        matTooltip="Ver Detalle del Nivel de Cumplimiento Reglamentario"
+                        matTooltip="Ver Detalle del Nivel de Cumplimiento Reglamentario del Aeródromo"
                       >
                         <mat-icon>visibility</mat-icon>
                       </button>
@@ -202,15 +202,33 @@
                   </td>
                   <td>
                     <p *ngIf="formAerodromo.value.aerodromo">
-                      <strong>Ver datos estadisticos : </strong>
+                      <strong>Grafico NCR : </strong>
 
                       <button
                         mat-icon-button
                         color="accent"
                         (click)="verGraficoNcr()"
-                        matTooltip=""
+                        matTooltip="Ver Grafico de NCR por estado de cumplimiento del Aeródromo"
                       >
                         <mat-icon>bar_chart</mat-icon>
+                      </button>
+                    </p>
+                  </td>
+                  <td>
+                    <p *ngIf="formAerodromo.value.aerodromo">
+                      <strong>Grafico Aeródromo : </strong>
+
+                      <button
+                        mat-icon-button
+                        color="accent"
+                        (click)="
+                          verGraficoRiesgoTaxonomia(
+                            formAerodromo.value.aerodromo
+                          )
+                        "
+                        matTooltip="Ver Gráfico de taxonomía e Índice de riesgos del Aeródromo."
+                      >
+                        <mat-icon>sort</mat-icon>
                       </button>
                     </p>
                   </td>
@@ -377,12 +395,12 @@
 
                   <td>
                     <p *ngIf="formAerodromo.value.aerodromo">
-                      <strong>Ver datos estadisticos : </strong>
+                      <strong>Ver Grafico : </strong>
 
                       <button
                         mat-icon-button
                         color="accent"
-                        (click)="verDetalleNcr()"
+                        (click)="verGraficoSms()"
                         matTooltip="Ver Detalle del Nivel de Cumplimiento Reglamentario"
                       >
                         <mat-icon>bar_chart</mat-icon>
